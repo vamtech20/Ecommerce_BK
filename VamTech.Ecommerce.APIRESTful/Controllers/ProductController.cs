@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using VamTech.Ecommerce.Api.Responses;
 using VamTech.Ecommerce.Core.CustomEntities;
 using VamTech.Ecommerce.Core.DTOs;
 using VamTech.Ecommerce.Core.Entities;
@@ -12,10 +11,11 @@ using VamTech.Ecommerce.Infrastructure.Interfaces;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using VamTech.Ecommerce.APIRESTful.Responses;
 
-namespace VamTech.Ecommerce.Api.Controllers
+namespace VamTech.Ecommerce.APIRESTful.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]

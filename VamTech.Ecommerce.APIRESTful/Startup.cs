@@ -1,32 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.CodeAnalysis.Options;
+using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
+using Microsoft.Extensions.Logging;
 using VamTech.Ecommerce.Core.CustomEntities;
 using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Core.Services;
-using VamTech.Ecommerce.Infrastructure.Data;
-using VamTech.Ecommerce.Infrastructure.Extensions;
+using VamTech.Ecommerce.Infraestructure.Data;
 using VamTech.Ecommerce.Infrastructure.Filters;
 using VamTech.Ecommerce.Infrastructure.Interfaces;
-using VamTech.Ecommerce.Infrastructure.Options;
 using VamTech.Ecommerce.Infrastructure.Repositories;
 using VamTech.Ecommerce.Infrastructure.Services;
-using System;
-using System.IO;
-using System.Reflection;
-using System.Text;
 
-namespace VamTech.Ecommerce.Api
+namespace VamTech.Ecommerce.APIRESTful
 {
     public class Startup
     {
@@ -55,28 +52,23 @@ namespace VamTech.Ecommerce.Api
                 //options.SuppressModelStateInvalidFilter = true;
             });
 
-            services.AddOptions(Configuration);
-            services.AddDbContexts(Configuration);
-            services.AddServices();
-            services.AddSwagger($"{Assembly.GetExecutingAssembly().GetName().Name}.xml");
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = Configuration["Authentication:Issuer"],
-                    ValidAudience = Configuration["Authentication:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Authentication:SecretKey"]))
-                };
+            services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));
 
+
+            services.AddDbContext<VamtechEcommerceContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("VamtechEcommerce"))
+            );
+
+            services.AddTransient<IProductService, ProductService>();
+            services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
+            services.AddSingleton<IUriService>(provider =>
+            {
+                var accesor = provider.GetRequiredService<IHttpContextAccessor>();
+                var request = accesor.HttpContext.Request;
+                var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
+                return new UriService(absoluteUri);
             });
 
             services.AddMvc(options =>
@@ -99,16 +91,8 @@ namespace VamTech.Ecommerce.Api
 
             app.UseHttpsRedirection();
 
-            app.UseSwagger();
-            app.UseSwaggerUI(options =>
-            {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "VamTech Ecommerce API V1");
-                options.RoutePrefix = string.Empty;
-            });
-
             app.UseRouting();
 
-            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

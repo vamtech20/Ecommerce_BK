@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using VamTech.Ecommerce.Core.Entities;
+using VamTech.Ecommerce.Infrastructure.Data.Configurations;
 
 namespace VamTech.Ecommerce.Infraestructure.Data
 {
@@ -269,28 +270,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
                 entity.Property(e => e.PercDiscountDirect).HasColumnType("numeric(3, 2)");
             });
 
-            modelBuilder.Entity<Product>(entity =>
-            {
-                entity.HasKey(e => e.ProductId)
-                    .HasName("PK2")
-                    .IsClustered(false);
-
-                entity.ToTable("Product", "Products");
-
-                entity.Property(e => e.Description).HasMaxLength(500);
-
-                entity.Property(e => e.PrecioVenta).HasColumnType("decimal(15, 2)");
-
-                entity.Property(e => e.Presentation).HasMaxLength(200);
-
-                entity.Property(e => e.Sku).HasColumnName("SKU");
-
-                entity.HasOne(d => d.Brand)
-                    .WithMany(p => p.Product)
-                    .HasForeignKey(d => d.BrandId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefBrand1");
-            });
+            
 
             modelBuilder.Entity<ProductCategory>(entity =>
             {
@@ -459,6 +439,8 @@ namespace VamTech.Ecommerce.Infraestructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Subcategory_Category");
             });
+
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }

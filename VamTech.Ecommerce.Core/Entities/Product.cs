@@ -16,7 +16,7 @@ namespace VamTech.Ecommerce.Core.Entities
             PurchaseOrderDetail = new HashSet<PurchaseOrderDetail>();
         }
 
-        public long ProductId { get; set; }
+        //public long ProductId { get; set; }
         public string Description { get; set; }
         public decimal? PrecioVenta { get; set; }
         public int Sku { get; set; }

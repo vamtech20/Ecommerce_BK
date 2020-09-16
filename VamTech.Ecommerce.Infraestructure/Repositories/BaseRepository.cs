@@ -26,7 +26,7 @@ namespace VamTech.Ecommerce.Infrastructure.Repositories
             return  _entities.AsEnumerable();
         }
 
-        public async Task<T> GetById(int id)
+        public async Task<T> GetById(long id)
         {
             return await _entities.FindAsync(id);
         }
@@ -41,7 +41,7 @@ namespace VamTech.Ecommerce.Infrastructure.Repositories
             _entities.Update(entity);
         }
 
-        public async Task Delete(int id)
+        public async Task Delete(long id)
         {
             T entity = await GetById(id);
             _entities.Remove(entity);
