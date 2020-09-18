@@ -75,6 +75,15 @@ namespace VamTech.Ecommerce.Api
                 return new UriService(absoluteUri);
             });
 
+            services.AddSwaggerGen(doc =>
+            {
+                doc.SwaggerDoc("v1", new OpenApiInfo { Title = "Vamtech Ecommerce API", Version = "v1" });
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                doc.IncludeXmlComments(xmlPath);
+
+            });
+
             services.AddMvc(options =>
             {
                 options.Filters.Add<ValidationFilter>();
@@ -94,6 +103,14 @@ namespace VamTech.Ecommerce.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseSwagger();
+
+            app.UseSwaggerUI(options =>
+            {
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", "Vamtech Ecommerce API V1");
+                options.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 
