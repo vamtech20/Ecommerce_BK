@@ -26,6 +26,8 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using VamTech.Ecommerce.Infraestructure.Data;
+using VamTech.Ecommerce.Core.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace VamTech.Ecommerce.Api
 {
@@ -74,6 +76,7 @@ namespace VamTech.Ecommerce.Api
                 var absoluteUri = string.Concat(request.Scheme, "://", request.Host.ToUriComponent());
                 return new UriService(absoluteUri);
             });
+                      
 
             services.AddSwaggerGen(doc =>
             {
@@ -83,6 +86,11 @@ namespace VamTech.Ecommerce.Api
                 doc.IncludeXmlComments(xmlPath);
 
             });
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+               .AddEntityFrameworkStores<VamtechEcommerceContext>()
+               .AddDefaultTokenProviders();
+
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

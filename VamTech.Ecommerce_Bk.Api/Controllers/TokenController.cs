@@ -24,7 +24,7 @@ namespace VamTech.Ecommerce.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Authentication(UserLogin login)
+        public IActionResult Authentication(UserInfo login)
         {
             //if it is a valid user
             if (IsValidUser(login))
@@ -36,7 +36,7 @@ namespace VamTech.Ecommerce.Api.Controllers
             return NotFound();
         }
 
-        private bool IsValidUser(UserLogin login)
+        private bool IsValidUser(UserInfo login)
         {
             return true;
         }

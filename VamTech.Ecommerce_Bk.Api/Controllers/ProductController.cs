@@ -12,13 +12,15 @@ using VamTech.Ecommerce.Infrastructure.Interfaces;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace VamTech.Ecommerce.Api.Controllers
 {
-    [Authorize]
+   
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class ProductController : ControllerBase
     {
         private readonly IProductService _ProductService;

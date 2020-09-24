@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using VamTech.Ecommerce.Core.Entities;
@@ -6,7 +7,7 @@ using VamTech.Ecommerce.Infrastructure.Data.Configurations;
 
 namespace VamTech.Ecommerce.Infraestructure.Data
 {
-    public partial class VamtechEcommerceContext : DbContext
+    public partial class VamtechEcommerceContext :  IdentityDbContext<ApplicationUser>
     {
         public VamtechEcommerceContext()
         {
@@ -42,6 +43,8 @@ namespace VamTech.Ecommerce.Infraestructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<Behavior>(entity =>
             {
                 entity.HasKey(e => e.BehaviorId)

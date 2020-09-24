@@ -9,11 +9,9 @@ namespace VamTech.Ecommerce.Infrastructure.Repositories
     public class UnitOfWork : IUnitOfWork
     {
         private readonly VamtechEcommerceContext _context;
-        private readonly IRepository<User> _userRepository;
+        
         private readonly IProductRepository _productRepository;
-        private readonly ISecurityRepository _securityRepository;
-
-
+       
 
         public UnitOfWork(VamtechEcommerceContext context)
         {
@@ -21,12 +19,7 @@ namespace VamTech.Ecommerce.Infrastructure.Repositories
         }
 
         public IProductRepository ProductRepository => _productRepository ?? new ProductRepository(_context);
-        public ISecurityRepository SecurityRepository => _securityRepository ?? new SecurityRepository(_context);
-
-       
-        public IRepository<User> UserRepository => _userRepository ?? new BaseRepository<User>(_context);
-
-      
+        
 
 
         public void Dispose()
