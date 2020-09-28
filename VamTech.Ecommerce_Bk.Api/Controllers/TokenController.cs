@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using VamTech.Ecommerce.Core.DTOs;
 using VamTech.Ecommerce.Core.Entities;
 
 namespace VamTech.Ecommerce.Api.Controllers
@@ -24,7 +25,7 @@ namespace VamTech.Ecommerce.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Authentication(UserInfo login)
+        public IActionResult Authentication(UserDto login)
         {
             //if it is a valid user
             if (IsValidUser(login))
@@ -36,7 +37,7 @@ namespace VamTech.Ecommerce.Api.Controllers
             return NotFound();
         }
 
-        private bool IsValidUser(UserInfo login)
+        private bool IsValidUser(UserDto login)
         {
             return true;
         }

@@ -14,7 +14,7 @@ namespace VamTech.Ecommerce.Infrastructure.Data.Configurations
             builder.Property(e => e.Id)
              .HasColumnName("ProductId");
             //builder.Property(e => e.ProductId)
-            //   .HasColumnName("IdSeguridad");
+           
 
             builder.ToTable("Product", "Products");
 
