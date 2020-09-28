@@ -11,6 +11,9 @@ namespace VamTech.Ecommerce.Infrastructure.Mappings
             CreateMap<Product, ProductDto>();
             CreateMap<ProductDto, Product>();
 
+            CreateMap<Client, UserDto>();
+            CreateMap<UserDto, Client>();
+
         }
     }
 }

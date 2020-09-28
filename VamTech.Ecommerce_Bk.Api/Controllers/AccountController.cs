@@ -11,37 +11,56 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using VamTech.Ecommerce.Core.Entities;
+using VamTech.Ecommerce.Core.DTOs;
+using VamTech.Ecommerce.Core.Interfaces;
+using AutoMapper;
+using VamTech.Ecommerce.Infrastructure.Interfaces;
 
 namespace VamTech.Ecommerce.Api.Controllers
 {
     [Produces("application/json")]
     [Route("api/Account")]
-    public class AccountController : Controller
+    [ApiController]
+    public class AccountController : ControllerBase
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IConfiguration _configuration;
+        private readonly IClientService _clientService;
+        
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IClientService clientService
+            )
         {
             _userManager = userManager;
             _signInManager = signInManager;
             this._configuration = configuration;
+            _clientService = clientService;
         }
 
         [Route("Create")]
         [HttpPost]
-        public async Task<IActionResult> CreateUser([FromBody] UserInfo model)
+        public async Task<IActionResult> CreateUser([FromBody] UserDto model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, PhoneNumber = model.MobilePhone };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    try
+                    {
+                        await _clientService.CreateClient(model);
+                    }
+                    catch (Exception)
+                    {
+
+                        return BadRequest("Error creating client");
+                    }
                     return BuildToken(model);
                 }
                 else
@@ -58,14 +77,15 @@ namespace VamTech.Ecommerce.Api.Controllers
 
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult> Login([FromBody] UserInfo userInfo)
+        public async Task<IActionResult> Login([FromBody] UserDto userDto)
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(userInfo.Email, userInfo.Password, isPersistent: false, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(userDto.Email, userDto.Password, isPersistent: false, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    return BuildToken(userInfo);
+                    userDto = _clientService.GetClient(userDto);
+                    return BuildToken(userDto);
                 }
                 else
                 {
@@ -79,12 +99,16 @@ namespace VamTech.Ecommerce.Api.Controllers
             }
         }
 
-        private IActionResult BuildToken(UserInfo userInfo)
+        private IActionResult BuildToken(UserDto userInfo)
         {
+            
+            
             var claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.UniqueName, userInfo.Email),
-                new Claim("miValor", "Lo que yo quiera"),
+                new Claim("FirstName", userInfo.FirstName),
+                new Claim("LastName", userInfo.LastName),
+                new Claim("MobilePhone", userInfo.MobilePhone),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

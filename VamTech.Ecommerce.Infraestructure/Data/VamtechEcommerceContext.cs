@@ -118,28 +118,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
                     .HasConstraintName("RefProvince15");
             });
 
-            modelBuilder.Entity<Client>(entity =>
-            {
-                entity.HasKey(e => e.ClientId)
-                    .HasName("PK1")
-                    .IsClustered(false);
-
-                entity.ToTable("Client", "Orders");
-
-                entity.Property(e => e.Document).HasColumnType("numeric(10, 0)");
-
-                entity.Property(e => e.FirstName)
-                    .IsRequired()
-                    .HasMaxLength(50);
-
-                entity.Property(e => e.HomePhone).HasMaxLength(20);
-
-                entity.Property(e => e.LastName)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.MobilePhone).HasMaxLength(20);
-            });
+           
 
             modelBuilder.Entity<Company>(entity =>
             {
@@ -444,6 +423,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
             });
 
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new ClientConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }
