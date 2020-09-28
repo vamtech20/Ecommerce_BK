@@ -150,7 +150,7 @@ namespace VamTech.Ecommerce.Api
             app.UseSwaggerUI(options =>
             {
                 options.SwaggerEndpoint("../swagger/v1/swagger.json", "Vamtech Ecommerce API V1");
-                options.RoutePrefix = string.Empty;
+                //options.RoutePrefix = string.Empty;
             });
 
             app.UseRouting();
