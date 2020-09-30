@@ -2,7 +2,8 @@
 {
     public enum State
     {
-        created = 1,
+        created = 0,
+        ok = 1,
         voided = 2,
         removed = 3,
         processed = 4,

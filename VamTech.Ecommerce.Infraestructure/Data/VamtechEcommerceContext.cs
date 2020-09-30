@@ -7,7 +7,7 @@ using VamTech.Ecommerce.Infrastructure.Data.Configurations;
 
 namespace VamTech.Ecommerce.Infraestructure.Data
 {
-    public partial class VamtechEcommerceContext :  IdentityDbContext<ApplicationUser>
+    public partial class VamtechEcommerceContext :  IdentityDbContext
     {
         public VamtechEcommerceContext()
         {

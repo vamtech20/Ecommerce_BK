@@ -73,15 +73,11 @@ namespace VamTech.Ecommerce.Core.Services
                  .FirstOrDefault();
         }
 
-        public async Task CreateClient(UserDto userDto)
+        public async Task CreateClient(ClientDto userDto)
         {
             var client = _mapper.Map<Client>(userDto);
             await InsertClient(client);
         }
-        public  UserDto GetClient(UserDto userDto)
-        {
-            var Client =  GetClientByEmail(userDto.Email);
-            return _mapper.Map<UserDto>(Client);
-        }
+        
     }
 }
