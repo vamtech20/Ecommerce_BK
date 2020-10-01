@@ -66,14 +66,15 @@ namespace VamTech.Ecommerce.Api
 
 
             services.AddDbContext<VamtechEcommerceContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("VamtechEcommerce"))
+                options.UseSqlServer(Configuration.GetConnectionString("VamtechEcommerce")).UseLazyLoadingProxies()
             );
 
             services.AddScoped<IUserService, UserService>();
             services.AddTransient<IMailService, SendGridMailService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IClientService, ClientService>();
-       
+            services.AddTransient<IOfferService, OfferService>();
+
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IUriService>(provider =>

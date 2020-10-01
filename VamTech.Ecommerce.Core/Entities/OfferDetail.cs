@@ -5,7 +5,7 @@ namespace VamTech.Ecommerce.Core.Entities
 {
     public partial class OfferDetail : BaseEntity
     {
-        public long OfferDetailId { get; set; }
+        //public long OfferDetailId { get; set; }
         public decimal? CurrentSalePrice { get; set; }
         public decimal? OfferSalePrice { get; set; }
         public int? StockToSellOut { get; set; }

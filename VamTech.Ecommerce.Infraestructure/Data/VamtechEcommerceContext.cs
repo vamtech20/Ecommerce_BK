@@ -77,16 +77,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
                     .HasConstraintName("RefProduct27");
             });
 
-            modelBuilder.Entity<Brand>(entity =>
-            {
-                entity.HasKey(e => e.BrandId)
-                    .HasName("PK9")
-                    .IsClustered(false);
-
-                entity.ToTable("Brand", "Products");
-
-                entity.Property(e => e.Description).HasMaxLength(200);
-            });
+           
 
             modelBuilder.Entity<Category>(entity =>
             {
@@ -190,69 +181,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
 
                 entity.Property(e => e.Description).HasMaxLength(500);
             });
-
-            modelBuilder.Entity<Offer>(entity =>
-            {
-                entity.HasKey(e => e.OfferId)
-                    .HasName("PK7")
-                    .IsClustered(false);
-
-                entity.ToTable("Offer", "Offers");
-
-                entity.Property(e => e.TotalPriceOffer).HasColumnType("numeric(15, 2)");
-
-                entity.Property(e => e.ValidFrom).HasColumnType("datetime");
-
-                entity.Property(e => e.ValidTo).HasColumnType("datetime");
-
-                entity.HasOne(d => d.OfferType)
-                    .WithMany(p => p.Offer)
-                    .HasForeignKey(d => d.OfferTypeId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefOfferType20");
-            });
-
-            modelBuilder.Entity<OfferDetail>(entity =>
-            {
-                entity.HasKey(e => e.OfferDetailId)
-                    .HasName("PK8")
-                    .IsClustered(false);
-
-                entity.ToTable("OfferDetail", "Offers");
-
-                entity.Property(e => e.CurrentSalePrice).HasColumnType("numeric(15, 2)");
-
-                entity.Property(e => e.OfferSalePrice).HasColumnType("numeric(15, 2)");
-
-                entity.HasOne(d => d.Offer)
-                    .WithMany(p => p.OfferDetail)
-                    .HasForeignKey(d => d.OfferId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefOffer21");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.OfferDetail)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefProduct22");
-            });
-
-            modelBuilder.Entity<OfferType>(entity =>
-            {
-                entity.HasKey(e => e.OfferTypeId)
-                    .HasName("PK15")
-                    .IsClustered(false);
-
-                entity.ToTable("OfferType", "Offers");
-
-                entity.Property(e => e.Description).HasMaxLength(500);
-
-                entity.Property(e => e.PercDisc2unity).HasColumnType("numeric(3, 2)");
-
-                entity.Property(e => e.PercDiscountDirect).HasColumnType("numeric(3, 2)");
-            });
-
-            
+                       
 
             modelBuilder.Entity<ProductCategory>(entity =>
             {
@@ -295,27 +224,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefProduct31");
             });
-
-            modelBuilder.Entity<ProductImage>(entity =>
-            {
-                entity.HasKey(e => e.ProductImageId)
-                    .HasName("PK6")
-                    .IsClustered(false);
-
-                entity.ToTable("ProductImage", "Products");
-
-                entity.Property(e => e.Image)
-                    .IsRequired()
-                    .HasColumnType("image");
-
-                entity.Property(e => e.IsPrincipal).HasColumnType("numeric(1, 0)");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductImage)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefProduct19");
-            });
+                      
 
             modelBuilder.Entity<ProductScore>(entity =>
             {
@@ -424,6 +333,11 @@ namespace VamTech.Ecommerce.Infraestructure.Data
 
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
+            modelBuilder.ApplyConfiguration(new OfferConfiguration());
+            modelBuilder.ApplyConfiguration(new OfferDetailConfiguration());
+            modelBuilder.ApplyConfiguration(new OfferTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
+            modelBuilder.ApplyConfiguration(new BrandConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }

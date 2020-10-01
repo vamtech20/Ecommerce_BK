@@ -7,16 +7,16 @@ namespace VamTech.Ecommerce.Core.Entities
     { 
         public Offer()
         {
-            OfferDetail = new HashSet<OfferDetail>();
+            Details = new HashSet<OfferDetail>();
         }
 
-        public long OfferId { get; set; }
+        //public long OfferId { get; set; }
         public DateTime? ValidFrom { get; set; }
         public DateTime? ValidTo { get; set; }
         public decimal? TotalPriceOffer { get; set; }
-        public int OfferTypeId { get; set; }
+        public long OfferTypeId { get; set; }
 
         public virtual OfferType OfferType { get; set; }
-        public virtual ICollection<OfferDetail> OfferDetail { get; set; }
+        public virtual ICollection<OfferDetail> Details { get; set; }
     }
 }

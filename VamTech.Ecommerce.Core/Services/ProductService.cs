@@ -31,7 +31,7 @@ namespace VamTech.Ecommerce.Core.Services
             filters.PageNumber = filters.PageNumber == 0 ? _paginationOptions.DefaultPageNumber : filters.PageNumber;
             filters.PageSize = filters.PageSize == 0 ? _paginationOptions.DefaultPageSize : filters.PageSize;
 
-            var Products = _unitOfWork.ProductRepository.GetAll();
+            var Products = _unitOfWork.ProductRepository.GetAll().Where(x=> x.IsFeatured == filters.IsFeatured);
 
             
             var pagedProducts = PagedList<Product>.Create(Products, filters.PageNumber, filters.PageSize);

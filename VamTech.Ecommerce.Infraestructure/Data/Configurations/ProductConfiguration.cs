@@ -20,11 +20,13 @@ namespace VamTech.Ecommerce.Infrastructure.Data.Configurations
 
             builder.Property(e => e.Description).HasMaxLength(500);
 
-            builder.Property(e => e.PrecioVenta).HasColumnType("decimal(15, 2)");
+            builder.Property(e => e.SalePrice).HasColumnType("decimal(15, 2)");
 
             builder.Property(e => e.Presentation).HasMaxLength(200);
 
             builder.Property(e => e.Sku).HasColumnName("SKU");
+
+            builder.Property(e => e.IsFeatured).HasColumnType("numeric(1, 0)");
 
             builder.HasOne(d => d.Brand)
                     .WithMany(p => p.Product)
