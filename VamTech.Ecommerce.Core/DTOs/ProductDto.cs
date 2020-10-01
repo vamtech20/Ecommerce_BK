@@ -6,12 +6,15 @@ namespace VamTech.Ecommerce.Core.DTOs
 {
     public class ProductDto
     {
-        //public long ProductId { get; set; }
+       
         public string Description { get; set; }
-        public decimal? PrecioVenta { get; set; }
+        public decimal? SalePrice { get; set; }
         public int Sku { get; set; }
         public long? BarCode { get; set; }
         public string Presentation { get; set; }
-        public int BrandId { get; set; }
+        public BrandDto Brand { get; set; }
+        public decimal IsFeatured { get; set; }
+        public virtual ICollection<ProductImageDto> Images { get; set; }
+
     }
 }

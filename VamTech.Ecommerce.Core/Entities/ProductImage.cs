@@ -5,8 +5,8 @@ namespace VamTech.Ecommerce.Core.Entities
 {
     public partial class ProductImage : BaseEntity
     {
-        public long ProductImageId { get; set; }
-        public byte[] Image { get; set; }
+        //public long ProductImageId { get; set; }
+        public string ImageUrl { get; set; }
         public decimal IsPrincipal { get; set; }
         public long ProductId { get; set; }
 

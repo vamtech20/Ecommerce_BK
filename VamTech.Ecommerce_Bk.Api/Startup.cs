@@ -28,6 +28,7 @@ using System.Text;
 using VamTech.Ecommerce.Infraestructure.Data;
 using VamTech.Ecommerce.Core.Entities;
 using Microsoft.AspNetCore.Identity;
+using VamTech.Ecommerce.Api.Services;
 
 namespace VamTech.Ecommerce.Api
 {
@@ -44,6 +45,8 @@ namespace VamTech.Ecommerce.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+           
 
             services.AddControllers(options =>
             {
@@ -63,11 +66,15 @@ namespace VamTech.Ecommerce.Api
 
 
             services.AddDbContext<VamtechEcommerceContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("VamtechEcommerce"))
+                options.UseSqlServer(Configuration.GetConnectionString("VamtechEcommerce")).UseLazyLoadingProxies()
             );
 
+            services.AddScoped<IUserService, UserService>();
+            services.AddTransient<IMailService, SendGridMailService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IClientService, ClientService>();
+            services.AddTransient<IOfferService, OfferService>();
+
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddSingleton<IUriService>(provider =>
@@ -88,9 +95,14 @@ namespace VamTech.Ecommerce.Api
 
             });
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
-               .AddEntityFrameworkStores<VamtechEcommerceContext>()
-               .AddDefaultTokenProviders();
+           
+            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            {
+                options.Password.RequireDigit = true;
+                options.Password.RequireLowercase = true;
+                options.Password.RequiredLength = 5;
+            }).AddEntityFrameworkStores<VamtechEcommerceContext>()
+                .AddDefaultTokenProviders(); 
 
             services.AddCors(options =>
             {

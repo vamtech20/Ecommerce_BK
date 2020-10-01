@@ -20,8 +20,8 @@ namespace VamTech.Ecommerce.Core.Interfaces
 
         Client GetClientByEmail(string email);
                
-        Task CreateClient(UserDto userDto);
+        Task CreateClient(ClientDto userDto);
 
-        UserDto GetClient(UserDto userDto);
+       
     }
 }
