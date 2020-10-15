@@ -30,8 +30,12 @@ namespace VamTech.Ecommerce.Core.Services
         {
             filters.PageNumber = filters.PageNumber == 0 ? _paginationOptions.DefaultPageNumber : filters.PageNumber;
             filters.PageSize = filters.PageSize == 0 ? _paginationOptions.DefaultPageSize : filters.PageSize;
+            filters.TextToFind = filters.TextToFind is null ? string.Empty : filters.TextToFind;
 
-            var Products = _unitOfWork.ProductRepository.GetAll().Where(x=> x.IsFeatured == filters.IsFeatured);
+            var Products = _unitOfWork.ProductRepository.GetAll().Where(x=> x.IsFeatured == filters.IsFeatured 
+                                                                        &&(x.Description.ToUpper().Contains(filters.TextToFind.ToUpper()) || filters.TextToFind.Trim().Length ==0)
+                                                                        //&&(x.Categories.Any(x=> x.SubcategoryId == filters.CategoryId || filters.CategoryId == 0))
+                                                                        );
 
             
             var pagedProducts = PagedList<Product>.Create(Products, filters.PageNumber, filters.PageSize);

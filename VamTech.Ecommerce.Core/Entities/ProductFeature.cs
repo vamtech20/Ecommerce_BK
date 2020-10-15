@@ -5,8 +5,8 @@ namespace VamTech.Ecommerce.Core.Entities
 {
     public partial class ProductFeature : BaseEntity
     {
-        public long ProductFeatureId { get; set; }
-        public int FeatureId { get; set; }
+        //public long ProductFeatureId { get; set; }
+        public long FeatureId { get; set; }
         public long ProductId { get; set; }
 
         public virtual Feature Feature { get; set; }

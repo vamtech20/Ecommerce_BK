@@ -45,7 +45,7 @@ namespace VamTech.Ecommerce.Infrastructure.Extensions
             
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
-            services.AddSingleton<IPasswordService, PasswordService>();
+            
             services.AddSingleton<IUriService>(provider =>
             {
                 var accesor = provider.GetRequiredService<IHttpContextAccessor>();

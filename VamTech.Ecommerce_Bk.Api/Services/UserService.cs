@@ -9,24 +9,15 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using VamTech.Ecommerce.Api.Interfaces;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
+using VamTech.Ecommerce.Infrastructure.Interfaces;
+using VamTech.Ecommerce.Infrastructure.Services;
 
 namespace VamTech.Ecommerce.Api.Services
 {
-    public interface IUserService
-    {
-
-        Task<UserManagerResponse> RegisterUserAsync(RegisterViewModel model);
-
-        Task<UserManagerResponse> LoginUserAsync(LoginViewModel model);
-
-        Task<UserManagerResponse> ConfirmEmailAsync(string userId, string token);
-
-        Task<UserManagerResponse> ForgetPasswordAsync(string email);
-
-        Task<UserManagerResponse> ResetPasswordAsync(ResetPasswordViewModel model);
-    }
+    
 
     public class UserService : IUserService
     {
@@ -72,8 +63,9 @@ namespace VamTech.Ecommerce.Api.Services
 
                 string url = $"{_configuration["AppUrl"]}/api/auth/confirmemail?userid={identityUser.Id}&token={validEmailToken}";
 
-                await _mailService.SendEmailAsync(identityUser.Email, "Confirm your email", $"<h1>Welcome to Auth Demo</h1>" +
-                    $"<p>Please confirm your email by <a href='{url}'>Clicking here</a></p>");
+                
+                string[] recipients = { identityUser.Email };
+                 _mailService.ConfirmPassword(url, recipients);
 
                 //crear cliente
                 try
@@ -221,8 +213,10 @@ namespace VamTech.Ecommerce.Api.Services
 
             string url = $"{_configuration["AppUrl"]}/ResetPassword?email={email}&token={validToken}";
 
-            await _mailService.SendEmailAsync(email, "Reset Password", "<h1>Follow the instructions to reset your password</h1>" +
-                $"<p>To reset your password <a href='{url}'>Click here</a></p>");
+            
+            string[] recipients = { email};
+            await _mailService.ResetPassword(url, recipients);
+
 
             return new UserManagerResponse
             {

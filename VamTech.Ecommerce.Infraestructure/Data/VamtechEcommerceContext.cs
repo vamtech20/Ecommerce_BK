@@ -77,19 +77,6 @@ namespace VamTech.Ecommerce.Infraestructure.Data
                     .HasConstraintName("RefProduct27");
             });
 
-           
-
-            modelBuilder.Entity<Category>(entity =>
-            {
-                entity.HasKey(e => e.CategoryId)
-                    .HasName("PK13")
-                    .IsClustered(false);
-
-                entity.ToTable("Category", "Products");
-
-                entity.Property(e => e.Description).HasMaxLength(300);
-            });
-
             modelBuilder.Entity<City>(entity =>
             {
                 entity.HasKey(e => e.CityId)
@@ -108,8 +95,6 @@ namespace VamTech.Ecommerce.Infraestructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefProvince15");
             });
-
-           
 
             modelBuilder.Entity<Company>(entity =>
             {
@@ -170,62 +155,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
 
                 entity.Property(e => e.ShortDesc).HasMaxLength(4);
             });
-
-            modelBuilder.Entity<Feature>(entity =>
-            {
-                entity.HasKey(e => e.FeatureId)
-                    .HasName("PK17")
-                    .IsClustered(false);
-
-                entity.ToTable("Feature", "Products");
-
-                entity.Property(e => e.Description).HasMaxLength(500);
-            });
-                       
-
-            modelBuilder.Entity<ProductCategory>(entity =>
-            {
-                entity.HasKey(e => e.ProductCategoryId)
-                    .HasName("PK16")
-                    .IsClustered(false);
-
-                entity.ToTable("ProductCategory", "Products");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductCategory)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefProduct24");
-
-                entity.HasOne(d => d.Subcategory)
-                    .WithMany(p => p.ProductCategory)
-                    .HasForeignKey(d => d.SubcategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefSubcategory25");
-            });
-
-            modelBuilder.Entity<ProductFeature>(entity =>
-            {
-                entity.HasKey(e => e.ProductFeatureId)
-                    .HasName("PK20")
-                    .IsClustered(false);
-
-                entity.ToTable("ProductFeature", "Products");
-
-                entity.HasOne(d => d.Feature)
-                    .WithMany(p => p.ProductFeature)
-                    .HasForeignKey(d => d.FeatureId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefFeature30");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductFeature)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefProduct31");
-            });
-                      
-
+            
             modelBuilder.Entity<ProductScore>(entity =>
             {
                 entity.HasKey(e => e.ProductScoreId)
@@ -314,22 +244,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
                     .HasConstraintName("RefPurchaseOrder17");
             });
 
-            modelBuilder.Entity<Subcategory>(entity =>
-            {
-                entity.HasKey(e => e.SubcategoryId)
-                    .HasName("PK13_1")
-                    .IsClustered(false);
-
-                entity.ToTable("Subcategory", "Products");
-
-                entity.Property(e => e.Description).HasMaxLength(300);
-
-                entity.HasOne(d => d.Category)
-                    .WithMany(p => p.Subcategory)
-                    .HasForeignKey(d => d.CategoryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Subcategory_Category");
-            });
+           
 
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
@@ -338,6 +253,11 @@ namespace VamTech.Ecommerce.Infraestructure.Data
             modelBuilder.ApplyConfiguration(new OfferTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ProductImageConfiguration());
             modelBuilder.ApplyConfiguration(new BrandConfiguration());
+            modelBuilder.ApplyConfiguration(new FeatureConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductFeatureConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new SubcategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }

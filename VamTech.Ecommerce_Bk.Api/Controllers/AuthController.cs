@@ -5,9 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using VamTech.Ecommerce.Api.Interfaces;
 using VamTech.Ecommerce.Api.Services;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
+using VamTech.Ecommerce.Infrastructure.Services;
 
 namespace VamTech.Ecommerce.Api.Controllers
 {
@@ -17,12 +19,10 @@ namespace VamTech.Ecommerce.Api.Controllers
     {
 
         private IUserService _userService;
-        private IMailService _mailService;
         private IConfiguration _configuration;
-        public AuthController(IUserService userService, IMailService mailService, IConfiguration configuration)
+        public AuthController(IUserService userService,  IConfiguration configuration)
         {
             _userService = userService;
-            _mailService = mailService;
             _configuration = configuration;
         }
 
@@ -53,7 +53,9 @@ namespace VamTech.Ecommerce.Api.Controllers
 
                 if (result.IsSuccess)
                 {
-                    await _mailService.SendEmailAsync(model.Email, "New login", "<h1>Hey!, new login to your account noticed</h1><p>New login to your account at " + DateTime.Now + "</p>");
+                    string[] recipients = { model.Email };
+                    //await _mailService.NewLogin( recipients);
+
                     return Ok(result);
                 }
 

@@ -10,7 +10,7 @@ namespace VamTech.Ecommerce.Core.Entities
             ProductFeature = new HashSet<ProductFeature>();
         }
 
-        public int FeatureId { get; set; }
+        //public int FeatureId { get; set; }
         public string Description { get; set; }
 
         public virtual ICollection<ProductFeature> ProductFeature { get; set; }

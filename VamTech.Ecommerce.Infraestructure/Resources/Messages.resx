@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Bad Request Some" xml:space="preserve">
+    <value>Algunas propiedades no son válidas</value>
+  </data>
+  <data name="Confirm your email body" xml:space="preserve">
+    <value>&lt;h1&gt;Bienvenido a {0}&lt;/h1&gt;&lt;br&gt;
+ &lt;p&gt;Por favor confirma tu mail  &lt;a href='{1}'&gt;Haciendo clic aquí&lt;/a&gt;&lt;/p&gt;</value>
+    <comment>Auth Mail</comment>
+  </data>
+  <data name="Confirm your email subject" xml:space="preserve">
+    <value>Confirma tu email</value>
+  </data>
+  <data name="Email confirmed successfully" xml:space="preserve">
+    <value>Email confirmado exitosamente!</value>
+  </data>
+  <data name="Email did not confirm" xml:space="preserve">
+    <value>Email no pudo confirmarse</value>
+  </data>
+  <data name="Invalid Password" xml:space="preserve">
+    <value>Password incorrecto</value>
+  </data>
+  <data name="New login Body" xml:space="preserve">
+    <value>&lt;h1&gt; ¡Hola! Se ha notado un nuevo inicio de sesión en su cuenta &lt;/h1&gt; &lt;p&gt; Nuevo inicio de sesión en su cuenta en {0} &lt;/p&gt;</value>
+    <comment>Auth Mail</comment>
+  </data>
+  <data name="New login subject" xml:space="preserve">
+    <value>Nuevo login</value>
+  </data>
+  <data name="No cliente associated with email" xml:space="preserve">
+    <value>No cliente el usuario asociado con el email</value>
+  </data>
+  <data name="No user associated with email" xml:space="preserve">
+    <value>No existe el usuario asociado con el email</value>
+  </data>
+  <data name="Password doesn't match its confirmation" xml:space="preserve">
+    <value>La contraseña no coincide con su confirmacion</value>
+  </data>
+  <data name="Password has been reset successfully" xml:space="preserve">
+    <value>La contraseña fue reseteada correctamente</value>
+  </data>
+  <data name="Reset Password body" xml:space="preserve">
+    <value>Confirme su correo electrónico 
+ &lt;h1&gt; Bienvenido a {0} &lt;/h1&gt;
+ &lt;p&gt; Confirme su correo electrónico &lt;a href='{1}'&gt; Haciendo clic aquí &lt;/a&gt; &lt;/p&gt;</value>
+    <comment>Auth Mail</comment>
+  </data>
+  <data name="Reset Password subject" xml:space="preserve">
+    <value>Resetear contraseña</value>
+  </data>
+  <data name="Reset password URL has been sent to the email successfully" xml:space="preserve">
+    <value>La URL Resetear contraseña ha sido enviada satisfactoriamente!</value>
+  </data>
+  <data name="Something went wrong" xml:space="preserve">
+    <value>Algun salió mal</value>
+  </data>
+  <data name="User Not Found" xml:space="preserve">
+    <value>Usuario no encontrado</value>
+  </data>
+</root>

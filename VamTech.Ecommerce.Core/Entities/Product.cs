@@ -9,8 +9,8 @@ namespace VamTech.Ecommerce.Core.Entities
         {
             BehaviorProduct = new HashSet<BehaviorProduct>();
             OfferDetail = new HashSet<OfferDetail>();
-            ProductCategory = new HashSet<ProductCategory>();
-            ProductFeature = new HashSet<ProductFeature>();
+            Categories = new HashSet<ProductCategory>();
+            Features = new HashSet<ProductFeature>();
             Images = new HashSet<ProductImage>();
             ProductScore = new HashSet<ProductScore>();
             PurchaseOrderDetail = new HashSet<PurchaseOrderDetail>();
@@ -28,8 +28,8 @@ namespace VamTech.Ecommerce.Core.Entities
         public virtual Brand Brand { get; set; }
         public virtual ICollection<BehaviorProduct> BehaviorProduct { get; set; }
         public virtual ICollection<OfferDetail> OfferDetail { get; set; }
-        public virtual ICollection<ProductCategory> ProductCategory { get; set; }
-        public virtual ICollection<ProductFeature> ProductFeature { get; set; }
+        public virtual ICollection<ProductCategory> Categories { get; set; }
+        public virtual ICollection<ProductFeature> Features { get; set; }
         public virtual ICollection<ProductImage> Images { get; set; }
         public virtual ICollection<ProductScore> ProductScore { get; set; }
         public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
