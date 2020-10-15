@@ -7,12 +7,12 @@ namespace VamTech.Ecommerce.Core.Entities
     {
         public Category()
         {
-            Subcategory = new HashSet<Subcategory>();
+            Subcategories = new HashSet<Subcategory>();
         }
 
-        public int CategoryId { get; set; }
+        //public int CategoryId { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<Subcategory> Subcategory { get; set; }
+        public virtual ICollection<Subcategory> Subcategories { get; set; }
     }
 }

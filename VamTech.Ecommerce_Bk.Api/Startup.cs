@@ -29,6 +29,7 @@ using VamTech.Ecommerce.Infraestructure.Data;
 using VamTech.Ecommerce.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using VamTech.Ecommerce.Api.Services;
+using VamTech.Ecommerce.Api.Interfaces;
 
 namespace VamTech.Ecommerce.Api
 {
@@ -70,7 +71,7 @@ namespace VamTech.Ecommerce.Api
             );
 
             services.AddScoped<IUserService, UserService>();
-            services.AddTransient<IMailService, SendGridMailService>();
+            services.AddTransient<IMailService, MailService>();
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IOfferService, OfferService>();
