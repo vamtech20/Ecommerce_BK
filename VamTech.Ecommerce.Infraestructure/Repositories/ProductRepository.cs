@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VamTech.Ecommerce.Core.DTOs;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Infraestructure.Data;
@@ -19,5 +20,7 @@ namespace Vamtech.Ecommerce.Infrastructure.Repositories
         {
             return await _entities.ToListAsync();
         }
+
+       
     }
 }
