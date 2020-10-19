@@ -1,7 +1,7 @@
 ﻿using System;
 using VamTech.Ecommerce.Core.QueryFilters;
 
-namespace VamTech.Ecommerce.Infrastructure.Interfaces
+namespace VamTech.Ecommerce.Core.Interfaces
 {
     public interface IUriService
     {

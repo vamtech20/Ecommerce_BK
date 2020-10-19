@@ -135,7 +135,7 @@ namespace VamTech.Ecommerce.Api.Services
                     IsSuccess = false,
                 };
             }
-            
+
 
             var claims = new[]
             {
@@ -143,8 +143,8 @@ namespace VamTech.Ecommerce.Api.Services
                 new Claim("FirstName", client.FirstName),
                 new Claim("LastName", client.LastName),
                 new Claim("MobilePhone", client.MobilePhone),
-                new Claim("HomePhone", client.HomePhone),
-                new Claim("Document", client.Document.ToString()),
+                new Claim("HomePhone", client.HomePhone ?? ""),
+                new Claim("Document", client.Document.ToString() ?? ""),
                 new Claim(ClaimTypes.NameIdentifier, user.Id),
             };
 

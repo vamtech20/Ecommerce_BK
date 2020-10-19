@@ -28,7 +28,7 @@ namespace VamTech.Ecommerce.Infrastructure.Data.Configurations
                 .HasConstraintName("RefOffer21");
 
             builder.HasOne(d => d.Product)
-                .WithMany(p => p.OfferDetail)
+                .WithMany(p => p.Offers)
                 .HasForeignKey(d => d.ProductId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("RefProduct22");

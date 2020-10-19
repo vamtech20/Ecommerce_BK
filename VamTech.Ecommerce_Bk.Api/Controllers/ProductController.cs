@@ -44,22 +44,12 @@ namespace VamTech.Ecommerce.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult GetProducts([FromQuery]ProductQueryFilter filters)
         {
-            var Products = _ProductService.GetProducts(filters);
-            var ProductsDtos = _mapper.Map<IEnumerable<ProductDto>>(Products);
+            
+            var metadata = new Metadata();
 
-            var metadata = new Metadata
-            {
-                TotalCount = Products.TotalCount,
-                PageSize = Products.PageSize,
-                CurrentPage = Products.CurrentPage,
-                TotalPages = Products.TotalPages,
-                HasNextPage = Products.HasNextPage,
-                HasPreviousPage = Products.HasPreviousPage,
-                NextPageUrl = _uriService.GetProductPaginationUri(filters, Url.RouteUrl(nameof(GetProducts))).ToString(),
-                PreviousPageUrl = _uriService.GetProductPaginationUri(filters, Url.RouteUrl(nameof(GetProducts))).ToString()
-            };
+            var prds =_ProductService.GetProducts(filters, Url.RouteUrl(nameof(GetProducts)), out metadata);
 
-            var response = new ApiResponse<IEnumerable<ProductDto>>(ProductsDtos)
+            var response = new ApiResponse<IEnumerable<ProductDto>>(prds)
             {
                 Meta = metadata
             };

@@ -15,7 +15,19 @@ namespace VamTech.Ecommerce.Infrastructure.Mappings
             CreateMap<OfferDto, Offer>();
 
 
-            CreateMap<OfferDetail, OfferDetailDto>();
+           
+            var offdetMappingExpression = CreateMap<OfferDetail, OfferDetailDto>();
+            offdetMappingExpression.ForMember(dto => dto.Description, mc => mc.MapFrom(e => e.Offer.OfferType.Description));
+            offdetMappingExpression.ForMember(dto => dto.PayN, mc => mc.MapFrom(e => e.Offer.OfferType.PayN));
+            offdetMappingExpression.ForMember(dto => dto.TakeM, mc => mc.MapFrom(e => e.Offer.OfferType.TakeM));
+            offdetMappingExpression.ForMember(dto => dto.PercDisc2unity, mc => mc.MapFrom(e => e.Offer.OfferType.PercDisc2unity));
+            offdetMappingExpression.ForMember(dto => dto.PercDiscountDirect, mc => mc.MapFrom(e => e.Offer.OfferType.PercDiscountDirect));
+            offdetMappingExpression.ForMember(dto => dto.TotalPriceOffer, mc => mc.MapFrom(e => e.Offer.TotalPriceOffer));
+            offdetMappingExpression.ForMember(dto => dto.IsActive, mc => mc.MapFrom(e => e.Offer.IsActive));
+            offdetMappingExpression.ForMember(dto => dto.ValidFrom, mc => mc.MapFrom(e => e.Offer.ValidFrom));
+            offdetMappingExpression.ForMember(dto => dto.ValidTo, mc => mc.MapFrom(e => e.Offer.ValidTo));
+
+
             CreateMap<OfferDetailDto, OfferDetail>();
                         
             CreateMap<OfferType, OfferTypeDto>();
@@ -30,7 +42,7 @@ namespace VamTech.Ecommerce.Infrastructure.Mappings
             CreateMap<FeatureDto, FeatureDto>();
             CreateMap<FeatureDto, FeatureDto>();
 
-            //CreateMap<ProductFeature, ProductFeatureDto>();
+            
             var prdftMappingExpression = CreateMap<ProductFeature, ProductFeatureDto>();
             prdftMappingExpression.ForMember(dto => dto.FeatureDesc, mc => mc.MapFrom(e => e.Feature.Description));
 
@@ -38,10 +50,12 @@ namespace VamTech.Ecommerce.Infrastructure.Mappings
             CreateMap<ProductFeatureDto, ProductFeature>();
             CreateMap<ProductFeatureDto, ProductFeature>();
 
-            //CreateMap<Product, ProductDto>();
+            
             var prdMappingExpression = CreateMap<Product, ProductDto>();
-            prdMappingExpression.ForMember(dto => dto.LongDesc, mc => mc.MapFrom(e => e.Description + "- "+ e.Brand.Description));
           
+          
+
+
             CreateMap<ProductDto, Product>();
 
           
