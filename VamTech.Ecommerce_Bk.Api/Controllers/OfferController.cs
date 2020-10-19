@@ -44,22 +44,11 @@ namespace VamTech.Ecommerce.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult GetOffers([FromQuery]OfferQueryFilter filters)
         {
-            var Offers = _offerService.GetOffers(filters);
-            var OffersDtos = _mapper.Map<IEnumerable<OfferDto>>(Offers);
+            var metadata = new Metadata();
 
-            var metadata = new Metadata
-            {
-                TotalCount = Offers.TotalCount,
-                PageSize = Offers.PageSize,
-                CurrentPage = Offers.CurrentPage,
-                TotalPages = Offers.TotalPages,
-                HasNextPage = Offers.HasNextPage,
-                HasPreviousPage = Offers.HasPreviousPage,
-                NextPageUrl = _uriService.GetOfferPaginationUri(filters, Url.RouteUrl(nameof(GetOffers))).ToString(),
-                PreviousPageUrl = _uriService.GetOfferPaginationUri(filters, Url.RouteUrl(nameof(GetOffers))).ToString()
-            };
+            var offs = _offerService.GetOffers(filters, Url.RouteUrl(nameof(GetOffers)), out metadata);
 
-            var response = new ApiResponse<IEnumerable<OfferDto>>(OffersDtos)
+            var response = new ApiResponse<IEnumerable<OfferDto>>(offs)
             {
                 Meta = metadata
             };
@@ -67,6 +56,8 @@ namespace VamTech.Ecommerce.Api.Controllers
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
             return Ok(response);
+
+            
         }
 
         //[HttpGet("{id}")]
