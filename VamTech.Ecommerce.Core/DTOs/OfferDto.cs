@@ -13,5 +13,7 @@ namespace VamTech.Ecommerce.Core.DTOs
         public OfferTypeDto OfferType { get; set; }
 
         public virtual ICollection<OfferDetailDto> Details { get; set; }
+
+        public bool IsActive { get; set; }
     }
 }
