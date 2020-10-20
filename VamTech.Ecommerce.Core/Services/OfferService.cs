@@ -34,7 +34,7 @@ namespace VamTech.Ecommerce.Core.Services
             filters.PageSize = filters.PageSize == 0 ? _paginationOptions.DefaultPageSize : filters.PageSize;
 
 
-            var offers = _unitOfWork.OfferRepository.GetAll();
+            var offers = _unitOfWork.OfferRepository.GetAll().Where(x=> x.IsActive);
 
             var pagedOffers = PagedList<Offer>.Create(offers, filters.PageNumber, filters.PageSize);
 
