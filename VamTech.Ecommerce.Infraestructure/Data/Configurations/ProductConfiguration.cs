@@ -20,6 +20,8 @@ namespace VamTech.Ecommerce.Infrastructure.Data.Configurations
 
             builder.Property(e => e.Description).HasMaxLength(500);
 
+            builder.Property(e => e.FullDescription).HasMaxLength(4000);
+
             builder.Property(e => e.SalePrice).HasColumnType("decimal(15, 2)");
 
             builder.Property(e => e.Presentation).HasMaxLength(200);

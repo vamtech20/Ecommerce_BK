@@ -16,6 +16,8 @@ namespace VamTech.Ecommerce.Core.DTOs
         public BrandDto Brand { get; set; }
         public decimal IsFeatured { get; set; }
 
+        public string FullDescription { get; set; }
+
         public  virtual ICollection<ProductImageDto> Images { get; set; }
         public virtual ICollection<ProductFeatureDto> Features { get; set; }
         ///public virtual ICollection<OfferDetailDto> Offers { get; set; }

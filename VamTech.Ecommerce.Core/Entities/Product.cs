@@ -26,6 +26,8 @@ namespace VamTech.Ecommerce.Core.Entities
         public long BrandId { get; set; }
         public decimal IsFeatured { get; set; }
 
+        public string FullDescription { get; set; }
+
         public virtual Brand Brand { get; set; }
         public virtual ICollection<BehaviorProduct> BehaviorProduct { get; set; }
         public virtual ICollection<OfferDetail> Offers { get; set; }
