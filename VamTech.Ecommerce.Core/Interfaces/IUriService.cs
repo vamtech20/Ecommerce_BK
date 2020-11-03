@@ -7,6 +7,8 @@ namespace VamTech.Ecommerce.Core.Interfaces
     {
         Uri GetProductPaginationUri(ProductQueryFilter filter, string actionUrl);
 
+        Uri GetCategoryPaginationUri(CategoryQueryFilter filter, string actionUrl);
+
         Uri GetOfferPaginationUri(OfferQueryFilter filter, string actionUrl);
     }
 }

@@ -44,38 +44,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Behavior>(entity =>
-            {
-                entity.HasKey(e => e.BehaviorId)
-                    .HasName("PK17_1")
-                    .IsClustered(false);
-
-                entity.ToTable("Behavior", "Products");
-
-                entity.Property(e => e.Description).HasMaxLength(500);
-            });
-
-            modelBuilder.Entity<BehaviorProduct>(entity =>
-            {
-                entity.HasKey(e => e.BehaviorProductId)
-                    .HasName("PK19")
-                    .IsClustered(false);
-
-                entity.ToTable("BehaviorProduct", "Products");
-
-                entity.HasOne(d => d.Behavior)
-                    .WithMany(p => p.BehaviorProduct)
-                    .HasForeignKey(d => d.BehaviorId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefAction29");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.BehaviorProduct)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefProduct27");
-            });
+                       
 
             modelBuilder.Entity<City>(entity =>
             {
@@ -258,6 +227,8 @@ namespace VamTech.Ecommerce.Infraestructure.Data
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new SubcategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new BehaviorConfiguration());
+            modelBuilder.ApplyConfiguration(new BehaviorProductConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }

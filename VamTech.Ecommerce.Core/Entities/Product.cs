@@ -8,7 +8,7 @@ namespace VamTech.Ecommerce.Core.Entities
 
         public Product()
         {
-            BehaviorProduct = new HashSet<BehaviorProduct>();
+            Behaviors = new HashSet<BehaviorProduct>();
             Offers = new HashSet<OfferDetail>();
             Categories = new HashSet<ProductCategory>();
             Features = new HashSet<ProductFeature>();
@@ -29,7 +29,7 @@ namespace VamTech.Ecommerce.Core.Entities
         public string FullDescription { get; set; }
 
         public virtual Brand Brand { get; set; }
-        public virtual ICollection<BehaviorProduct> BehaviorProduct { get; set; }
+        public virtual ICollection<BehaviorProduct> Behaviors { get; set; }
         public virtual ICollection<OfferDetail> Offers { get; set; }
         public virtual ICollection<ProductCategory> Categories { get; set; }
         public virtual ICollection<ProductFeature> Features { get; set; }
