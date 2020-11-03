@@ -7,8 +7,8 @@ namespace VamTech.Ecommerce.Core.Interfaces
     {
         IProductRepository ProductRepository { get; }
         IClientRepository ClientRepository { get; }
-
         IOfferRepository OfferRepository { get; }
+        ICategoryRepository CategoryRepository { get; }
 
 
         void SaveChanges();

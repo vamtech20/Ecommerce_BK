@@ -75,6 +75,7 @@ namespace VamTech.Ecommerce.Api
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IOfferService, OfferService>();
+            services.AddTransient<ICategoryService, CategoryService>();
 
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();

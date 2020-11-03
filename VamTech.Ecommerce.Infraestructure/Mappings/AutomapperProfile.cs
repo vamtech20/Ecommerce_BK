@@ -35,26 +35,35 @@ namespace VamTech.Ecommerce.Infrastructure.Mappings
             CreateMap<BrandDto, Brand>();
             CreateMap<Brand, BrandDto>();
 
-            CreateMap<FeatureDto, FeatureDto>();
-            CreateMap<FeatureDto, FeatureDto>();
+            CreateMap<FeatureDto, Feature>();
+            CreateMap<Feature, FeatureDto>();
 
-            
+            CreateMap<BehaviorDto, Behavior>();
+            CreateMap<Behavior, BehaviorDto>();
+
+
             var prdftMappingExpression = CreateMap<ProductFeature, ProductFeatureDto>();
             prdftMappingExpression.ForMember(dto => dto.FeatureDesc, mc => mc.MapFrom(e => e.Feature.Description));
 
+            var prdbvMappingExpression = CreateMap<BehaviorProduct, BehaviorProductDto>();
+            prdbvMappingExpression.ForMember(dto => dto.BehaviorDesc, mc => mc.MapFrom(e => e.Behavior.Description));
+
 
             CreateMap<ProductFeatureDto, ProductFeature>();
-            CreateMap<ProductFeatureDto, ProductFeature>();
-
             
-            var prdMappingExpression = CreateMap<Product, ProductDto>();
-          
-          
+
+            CreateMap<CategoryDto, Category>();
+            CreateMap<Category, CategoryDto>();
+
+            CreateMap<SubcategoryDto, Subcategory>();
+            CreateMap<Subcategory, SubcategoryDto>();
 
 
+            // var prdMappingExpression = CreateMap<Product, ProductDto>();
             CreateMap<ProductDto, Product>();
+            CreateMap<Product, ProductDto>();
 
-          
+
 
 
         }

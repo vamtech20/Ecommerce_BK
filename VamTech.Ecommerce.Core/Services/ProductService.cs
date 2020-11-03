@@ -39,10 +39,11 @@ namespace VamTech.Ecommerce.Core.Services
             filters.PageSize = filters.PageSize == 0 ? _paginationOptions.DefaultPageSize : filters.PageSize;
             filters.TextToFind = filters.TextToFind is null ? string.Empty : filters.TextToFind;
             filters.IsFeatured = filters.IsFeatured is null ? -1 : filters.IsFeatured;
+            filters.CategoryId = filters.CategoryId is null ? 0 : filters.CategoryId;
 
             var Products = _unitOfWork.ProductRepository.GetAll().Where(x => (x.IsFeatured == filters.IsFeatured || filters.IsFeatured ==-1)
                                       && (x.LongDesc.ToUpper().Contains(filters.TextToFind.ToUpper()) || filters.TextToFind.Trim().Length == 0)
-                                     //&&(x.Categories.Any(x=> x.SubcategoryId == filters.CategoryId || filters.CategoryId == 0))
+                                      &&(x.Categories.Any(x=> x.SubcategoryId == filters.CategoryId || filters.CategoryId == 0))
                                      );
 
             var pagedProducts = PagedList<Product>.Create(Products, filters.PageNumber, filters.PageSize);

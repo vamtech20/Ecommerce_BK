@@ -7,12 +7,12 @@ namespace VamTech.Ecommerce.Core.Entities
     {
         public Behavior()
         {
-            BehaviorProduct = new HashSet<BehaviorProduct>();
+            Products = new HashSet<BehaviorProduct>();
         }
 
-        public int BehaviorId { get; set; }
+        //public int BehaviorId { get; set; }
         public string Description { get; set; }
 
-        public virtual ICollection<BehaviorProduct> BehaviorProduct { get; set; }
+        public virtual ICollection<BehaviorProduct> Products { get; set; }
     }
 }
