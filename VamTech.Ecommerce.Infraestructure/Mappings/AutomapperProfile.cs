@@ -48,9 +48,14 @@ namespace VamTech.Ecommerce.Infrastructure.Mappings
             var prdbvMappingExpression = CreateMap<BehaviorProduct, BehaviorProductDto>();
             prdbvMappingExpression.ForMember(dto => dto.BehaviorDesc, mc => mc.MapFrom(e => e.Behavior.Description));
 
+            var prdcatMappingExpression = CreateMap<ProductCategory, ProductCategoryDto>();
+            prdcatMappingExpression.ForMember(dto => dto.CategoryDesc, mc => mc.MapFrom(e => e.Subcategory.Category.Description));
+
 
             CreateMap<ProductFeatureDto, ProductFeature>();
-            
+            CreateMap<ProductFeatureDto, ProductFeature>();
+            CreateMap<ProductCategoryDto, ProductCategory>();
+
 
             CreateMap<CategoryDto, Category>();
             CreateMap<Category, CategoryDto>();
