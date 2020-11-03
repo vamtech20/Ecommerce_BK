@@ -43,7 +43,7 @@ namespace VamTech.Ecommerce.Core.Services
 
             var Products = _unitOfWork.ProductRepository.GetAll().Where(x => (x.IsFeatured == filters.IsFeatured || filters.IsFeatured ==-1)
                                       && (x.LongDesc.ToUpper().Contains(filters.TextToFind.ToUpper()) || filters.TextToFind.Trim().Length == 0)
-                                      &&(x.Categories.Any(x=> x.SubcategoryId == filters.CategoryId || filters.CategoryId == 0))
+                                      &&(x.Categories.Any(x=> x.Subcategory.CategoryId == filters.CategoryId || filters.CategoryId == 0))
                                      );
 
             var pagedProducts = PagedList<Product>.Create(Products, filters.PageNumber, filters.PageSize);

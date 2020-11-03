@@ -21,6 +21,10 @@ namespace VamTech.Ecommerce.Core.DTOs
         public  virtual ICollection<ProductImageDto> Images { get; set; }
         public virtual ICollection<ProductFeatureDto> Features { get; set; }
         ///public virtual ICollection<OfferDetailDto> Offers { get; set; }
+       
+        public virtual ICollection<BehaviorProductDto> Behaviors { get; set; }
+
+        public virtual ICollection<ProductCategoryDto> Categories { get; set; }
 
         public OfferDetailDto ActiveOffer { get; set; }
 
