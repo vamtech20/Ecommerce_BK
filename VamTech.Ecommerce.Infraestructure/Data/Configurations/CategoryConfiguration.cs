@@ -18,7 +18,11 @@ namespace VamTech.Ecommerce.Infrastructure.Data.Configurations
             builder.ToTable("Category", "Products");
 
             builder.Property(e => e.Description).HasMaxLength(300);
-                      
+
+            builder.Property(e => e.IconUrl).HasMaxLength(300);
+
+            builder.Property(e => e.IsFeatured).HasColumnType("numeric(1, 0)");
+
 
         }
 
