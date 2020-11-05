@@ -12,7 +12,7 @@ namespace VamTech.Ecommerce.Core.QueryFilters
 
         public long? CategoryId { get; set; }
 
-        public long? SubcatategoryId { get; set; }
+        public long? SubcategoryId { get; set; }
 
         public int PageSize { get; set; }
 
