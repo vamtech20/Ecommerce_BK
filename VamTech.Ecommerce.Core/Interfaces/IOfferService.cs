@@ -12,6 +12,8 @@ namespace VamTech.Ecommerce.Core.Interfaces
         //PagedList<Offer> GetOffers(OfferQueryFilter filters);
         IEnumerable<OfferDto> GetOffers(OfferQueryFilter filters, string actionUrl, out Metadata metadata);
 
+        IEnumerable<OfferTypeDto> GetOfferTypes();
+
 
     }
 }

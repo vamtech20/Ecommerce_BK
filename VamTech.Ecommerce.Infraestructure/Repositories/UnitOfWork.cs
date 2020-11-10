@@ -14,6 +14,8 @@ namespace VamTech.Ecommerce.Infrastructure.Repositories
         private readonly IClientRepository _clientRepository;
         private readonly IOfferRepository _offerRepository;
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IOfferTypeRepository _offerTypeRepository;
+        private readonly IBrandRepository _brandRepository;
 
 
 
@@ -28,6 +30,10 @@ namespace VamTech.Ecommerce.Infrastructure.Repositories
         public IOfferRepository OfferRepository => _offerRepository ?? new OfferRepository(_context);
 
         public ICategoryRepository CategoryRepository => _categoryRepository ?? new CategoryRepository(_context);
+
+        public IOfferTypeRepository OfferTypeRepository => _offerTypeRepository ?? new OfferTypeRepository(_context);
+
+        public IBrandRepository BrandRepository => _brandRepository ?? new BrandRepository(_context);
 
 
 

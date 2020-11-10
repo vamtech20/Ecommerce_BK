@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using VamTech.Ecommerce.Core.CustomEntities;
 using VamTech.Ecommerce.Core.DTOs;
 using VamTech.Ecommerce.Core.Entities;
+using VamTech.Ecommerce.Core.Enumerations;
 using VamTech.Ecommerce.Core.Exceptions;
 using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Core.QueryFilters;
@@ -39,6 +40,7 @@ namespace VamTech.Ecommerce.Core.Services
             filters.PageSize = filters.PageSize == 0 ? _paginationOptions.DefaultPageSize : filters.PageSize;
             filters.TextToFind = filters.TextToFind is null ? string.Empty : filters.TextToFind;
             filters.IsFeatured = filters.IsFeatured is null ? -1 : filters.IsFeatured;
+            filters.OrderingCriterionId = filters.OrderingCriterionId is null ? 0 : filters.OrderingCriterionId;
             filters.CategoryId = filters.CategoryId is null ? 0 : filters.CategoryId;
             filters.SubcategoryId = filters.SubcategoryId is null ? 0 : filters.SubcategoryId;
 
@@ -47,6 +49,29 @@ namespace VamTech.Ecommerce.Core.Services
                                       &&(x.Categories.Any(x=> x.Subcategory.CategoryId == filters.CategoryId || filters.CategoryId == 0))
                                       && (x.Categories.Any(x => x.SubcategoryId == filters.SubcategoryId || filters.SubcategoryId == 0))
                                      );
+
+            switch (filters.OrderingCriterionId)
+            {
+                case (int)OrderingCriterion.Alfabetico:
+                    Products = Products.OrderBy(x => x.LongDesc);
+                    break;
+                case (int)OrderingCriterion.AlfabeticoDescendiente:
+                    Products = Products.OrderByDescending(x => x.LongDesc);
+                    break;
+                case (int)OrderingCriterion.MenorPrecio:
+                    Products = Products.OrderBy(x => x.SalePrice);
+                    break;
+                case (int)OrderingCriterion.MayorPrecio:
+                    Products = Products.OrderByDescending(x => x.SalePrice);
+                    break;
+                case (int)OrderingCriterion.MasVendidos:
+                    Products = Products.OrderBy(x => x.IsFeatured);
+                    break;
+
+
+                default:
+                    break;
+            }
 
             var pagedProducts = PagedList<Product>.Create(Products, filters.PageNumber, filters.PageSize);
                         
@@ -93,6 +118,14 @@ namespace VamTech.Ecommerce.Core.Services
             await _unitOfWork.ProductRepository.Delete(id);
             await _unitOfWork.SaveChangesAsync();
             return true;
+        }
+        public IEnumerable<BrandDto> GetBrands()
+        {
+            var brands = _unitOfWork.BrandRepository.GetAll();
+            var brandsDtos = _mapper.Map<IEnumerable<BrandDto>>(brands);
+
+            return brandsDtos;
+
         }
     }
 }

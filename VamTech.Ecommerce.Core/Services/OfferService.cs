@@ -57,5 +57,15 @@ namespace VamTech.Ecommerce.Core.Services
 
         }
 
+
+        public IEnumerable<OfferTypeDto> GetOfferTypes()
+        {
+            var offerTypes = _unitOfWork.OfferTypeRepository.GetAll();
+            var offersTypesDtos = _mapper.Map<IEnumerable<OfferTypeDto>>(offerTypes);
+
+            return offersTypesDtos;
+
+        }
+
     }
 }

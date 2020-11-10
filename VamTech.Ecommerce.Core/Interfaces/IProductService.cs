@@ -18,5 +18,7 @@ namespace VamTech.Ecommerce.Core.Interfaces
         Task<bool> UpdateProduct(Product product);
 
         Task<bool> DeleteProduct(int id);
+
+        IEnumerable<BrandDto> GetBrands();
     }
 }
