@@ -10,6 +10,10 @@ namespace VamTech.Ecommerce.Core.Interfaces
         IOfferRepository OfferRepository { get; }
         ICategoryRepository CategoryRepository { get; }
 
+        IOfferTypeRepository OfferTypeRepository { get; }
+
+        IBrandRepository BrandRepository { get; }
+
 
         void SaveChanges();
                 Task SaveChangesAsync();

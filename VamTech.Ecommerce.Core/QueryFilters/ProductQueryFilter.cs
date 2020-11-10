@@ -14,6 +14,8 @@ namespace VamTech.Ecommerce.Core.QueryFilters
 
         public long? SubcategoryId { get; set; }
 
+        public decimal? OrderingCriterionId { get; set; }
+        
         public int PageSize { get; set; }
 
         public int PageNumber { get; set; }
