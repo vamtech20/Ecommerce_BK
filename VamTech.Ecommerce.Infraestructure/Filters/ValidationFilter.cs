@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VamTech.Ecommerce.Infrastructure.Filters
+namespace VamTech.Ecommerce.Infraestructure.Filters
 {
     public class ValidationFilter : IAsyncActionFilter
     {

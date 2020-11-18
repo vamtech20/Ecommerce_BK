@@ -12,8 +12,10 @@ using System.Threading.Tasks;
 using VamTech.Ecommerce.Api.Interfaces;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
-using VamTech.Ecommerce.Infrastructure.Interfaces;
-using VamTech.Ecommerce.Infrastructure.Services;
+using VamTech.Ecommerce.Infraestructure.Interfaces;
+using VamTech.Ecommerce.Infraestructure.Services;
+using VamTech.Ecommerce.Infraestructure.Resources;
+using VamTech.Ecommerce.Core.Enumerations;
 
 namespace VamTech.Ecommerce.Api.Services
 {
@@ -37,12 +39,12 @@ namespace VamTech.Ecommerce.Api.Services
         public async Task<UserManagerResponse> RegisterUserAsync(RegisterViewModel model)
         {
             if (model == null)
-                throw new NullReferenceException("Reigster Model is null");
+                throw new NullReferenceException("El formulario de registro esta vacio");
 
             if (model.Password != model.ConfirmPassword)
                 return new UserManagerResponse
                 {
-                    Message = "Confirm password doesn't match the password",
+                    Message = "El password de confirmacion no coincide con el password" ,
                     IsSuccess = false,
                 };
 
@@ -52,7 +54,10 @@ namespace VamTech.Ecommerce.Api.Services
                 UserName = model.Email,
             };
 
+           
             var result = await _userManger.CreateAsync(identityUser, model.Password);
+
+            await _userManger.AddClaimAsync(identityUser, new Claim(_configuration["ClaimTypeProfile"].ToString(), "CLIENTE"));
 
             if(result.Succeeded)
             {
@@ -77,7 +82,7 @@ namespace VamTech.Ecommerce.Api.Services
 
                     return new UserManagerResponse
                     {
-                        Message = "Client did not create",
+                        Message = "El cliente no fue creado",
                         IsSuccess = false,
                         Errors = result.Errors.Select(e => e.Description)
                     };
@@ -86,14 +91,14 @@ namespace VamTech.Ecommerce.Api.Services
 
                 return new UserManagerResponse
                 {
-                    Message = "User created successfully!",
+                    Message = "El usuario fue creado correctamente!",
                     IsSuccess = true,
                 };
             }
 
             return new UserManagerResponse
             {
-                Message = "User did not create",
+                Message = "El usuario no fue creado",
                 IsSuccess = false,
                 Errors = result.Errors.Select(e => e.Description)
             };
@@ -109,7 +114,7 @@ namespace VamTech.Ecommerce.Api.Services
             {
                 return new UserManagerResponse
                 {
-                    Message = "There is no user with that Email address",
+                    Message = "No existe el usuario con esa direccion de mail",
                     IsSuccess = false,
                 };
             }
@@ -119,7 +124,7 @@ namespace VamTech.Ecommerce.Api.Services
             if(!result)
                 return new UserManagerResponse
                 {
-                    Message = "Invalid password",
+                    Message = "Password invalido",
                     IsSuccess = false,
                 };
             try
@@ -131,13 +136,24 @@ namespace VamTech.Ecommerce.Api.Services
             {
                 return new UserManagerResponse
                 {
-                    Message = "Client not exists",
+                    Message = "No existe el cliente",
                     IsSuccess = false,
                 };
             }
 
+            var usr = _userManger.FindByEmailAsync(model.Email);
 
-            var claims = new[]
+            string profile = string.Empty;
+
+            foreach (var cla in await _userManger.GetClaimsAsync(usr.Result))
+            {
+                if(cla.Type == _configuration["ClaimTypeProfile"].ToString())
+                    profile = cla.Value;
+
+            }
+
+
+            var claims = new List<Claim>
             {
                 new Claim("Email", model.Email),
                 new Claim("FirstName", client.FirstName),
@@ -145,8 +161,16 @@ namespace VamTech.Ecommerce.Api.Services
                 new Claim("MobilePhone", client.MobilePhone),
                 new Claim("HomePhone", client.HomePhone ?? ""),
                 new Claim("Document", client.Document.ToString() ?? ""),
-                new Claim(ClaimTypes.NameIdentifier, user.Id),
+                new Claim(_configuration["ClaimTypeProfile"].ToString(), profile),
+                new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
+
+           
+
+
+
+           
+            
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Authentication:SecretKey"]));
 
@@ -154,7 +178,7 @@ namespace VamTech.Ecommerce.Api.Services
                 issuer: _configuration["Authentication:Issuer"],
                 audience: _configuration["Authentication:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddDays(30),
+                expires: DateTime.Now.AddMinutes(10),
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256));
 
             string tokenAsString = new JwtSecurityTokenHandler().WriteToken(token);
@@ -174,7 +198,7 @@ namespace VamTech.Ecommerce.Api.Services
                 return new UserManagerResponse
                 {
                     IsSuccess = false,
-                    Message = "User not found"
+                    Message = "El usuario no fue creado"
                 };
 
             var decodedToken = WebEncoders.Base64UrlDecode(token);
@@ -185,14 +209,14 @@ namespace VamTech.Ecommerce.Api.Services
             if (result.Succeeded)
                 return new UserManagerResponse
                 {
-                    Message = "Email confirmed successfully!",
+                    Message = "Email confirmado correctamente!",
                     IsSuccess = true,
                 };
 
             return new UserManagerResponse
             {
                 IsSuccess = false,
-                Message = "Email did not confirm",
+                Message = "Email no confirmado",
                 Errors = result.Errors.Select(e => e.Description)
             };
         }
@@ -204,7 +228,7 @@ namespace VamTech.Ecommerce.Api.Services
                 return new UserManagerResponse
                 {
                     IsSuccess = false,
-                    Message = "No user associated with email",
+                    Message = "No existe el usuario asociado con el email",
                 };
 
             var token = await _userManger.GeneratePasswordResetTokenAsync(user);
@@ -221,7 +245,7 @@ namespace VamTech.Ecommerce.Api.Services
             return new UserManagerResponse
             {
                 IsSuccess = true,
-                Message = "Reset password URL has been sent to the email successfully!"
+                Message = "El link para resetear password ha sido enviado al mail exitosamente!"
             };
         }
 
@@ -232,14 +256,14 @@ namespace VamTech.Ecommerce.Api.Services
                 return new UserManagerResponse
                 {
                     IsSuccess = false,
-                    Message = "No user associated with email",
+                    Message = "El usuario no esta asociado con el mail",
                 };
 
             if(model.NewPassword != model.ConfirmPassword)
                 return new UserManagerResponse
                 {
                     IsSuccess = false,
-                    Message = "Password doesn't match its confirmation",
+                    Message = "El password no coincide con el de confirmacion",
                 };
 
             var decodedToken = WebEncoders.Base64UrlDecode(model.Token);
@@ -250,13 +274,13 @@ namespace VamTech.Ecommerce.Api.Services
             if (result.Succeeded)
                 return new UserManagerResponse
                 {
-                    Message = "Password has been reset successfully!",
+                    Message = "El password ha sido reseteado correctamente!",
                     IsSuccess = true,
                 };
 
             return new UserManagerResponse
             {
-                Message = "Something went wrong",
+                Message = "Algo salio mal",
                 IsSuccess = false,
                 Errors = result.Errors.Select(e => e.Description),
             };

@@ -2,13 +2,13 @@
 using VamTech.Ecommerce.Core.Interfaces;
 using System.Threading.Tasks;
 using VamTech.Ecommerce.Infraestructure.Data;
-using Vamtech.Ecommerce.Infrastructure.Repositories;
+using VamTech.Ecommerce.Infraestructure.Repositories;
 
-namespace VamTech.Ecommerce.Infrastructure.Repositories
+namespace VamTech.Ecommerce.Infraestructure.Repositories
 {
     public class UnitOfWork : IUnitOfWork
     {
-        private readonly VamtechEcommerceContext _context;
+        private readonly VamTechEcommerceContext _context;
         
         private readonly IProductRepository _productRepository;
         private readonly IClientRepository _clientRepository;
@@ -19,7 +19,7 @@ namespace VamTech.Ecommerce.Infrastructure.Repositories
 
 
 
-        public UnitOfWork(VamtechEcommerceContext context)
+        public UnitOfWork(VamTechEcommerceContext context)
         {
             _context = context;
         }

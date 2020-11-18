@@ -5,9 +5,9 @@ using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
 using VamTech.Ecommerce.Infraestructure.Resources;
-using VamTech.Ecommerce.Infrastructure.Interfaces;
+using VamTech.Ecommerce.Infraestructure.Interfaces;
 
-namespace VamTech.Ecommerce.Infrastructure.Services
+namespace VamTech.Ecommerce.Infraestructure.Services
 {
     public class MailService : IMailService
     {
