@@ -12,20 +12,20 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using VamTech.Ecommerce.Infraestructure.Data;
-using Vamtech.Ecommerce.Infrastructure.Repositories;
-using VamTech.Ecommerce.Infrastructure.Repositories;
-using VamTech.Ecommerce.Infrastructure.Interfaces;
-using VamTech.Ecommerce.Infrastructure.Services;
-using VamTech.Ecommerce.Infrastructure.Options;
+using VamTech.Ecommerce.Infraestructure.Repositories;
+using VamTech.Ecommerce.Infraestructure.Repositories;
+using VamTech.Ecommerce.Infraestructure.Interfaces;
+using VamTech.Ecommerce.Infraestructure.Services;
+using VamTech.Ecommerce.Infraestructure.Options;
 
-namespace VamTech.Ecommerce.Infrastructure.Extensions
+namespace VamTech.Ecommerce.Infraestructure.Extensions
 {
     public static class ServiceCollectionExtension
     {
         public static IServiceCollection AddDbContexts(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<VamtechEcommerceContext>(options =>
-               options.UseSqlServer(configuration.GetConnectionString("VamtechEcommerce"))
+            services.AddDbContext<VamTechEcommerceContext>(options =>
+               options.UseSqlServer(configuration.GetConnectionString("VamTechEcommerce"))
            );
 
             return services;
@@ -61,7 +61,7 @@ namespace VamTech.Ecommerce.Infrastructure.Extensions
         {
             services.AddSwaggerGen(doc =>
             {
-                doc.SwaggerDoc("v1", new OpenApiInfo { Title = "VamtechEcommerce API", Version = "v1" });
+                doc.SwaggerDoc("v1", new OpenApiInfo { Title = "VamTechEcommerce API", Version = "v1" });
 
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFileName);
                 doc.IncludeXmlComments(xmlPath);

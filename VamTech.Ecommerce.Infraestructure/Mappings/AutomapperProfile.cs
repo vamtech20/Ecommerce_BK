@@ -2,7 +2,7 @@
 using VamTech.Ecommerce.Core.DTOs;
 using VamTech.Ecommerce.Core.Entities;
 
-namespace VamTech.Ecommerce.Infrastructure.Mappings
+namespace VamTech.Ecommerce.Infraestructure.Mappings
 {
     public class AutomapperProfile : Profile
     {

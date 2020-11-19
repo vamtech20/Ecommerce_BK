@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using VamTech.Ecommerce.Core.Entities;
 
-namespace VamTech.Ecommerce.Infrastructure.Data.Configurations
+namespace VamTech.Ecommerce.Infraestructure.Data.Configurations
 {
     public class OfferDetailConfiguration : IEntityTypeConfiguration<OfferDetail>
     {

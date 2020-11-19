@@ -8,13 +8,13 @@ using VamTech.Ecommerce.Core.DTOs;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Infraestructure.Data;
-using VamTech.Ecommerce.Infrastructure.Repositories;
+using VamTech.Ecommerce.Infraestructure.Repositories;
 
-namespace Vamtech.Ecommerce.Infrastructure.Repositories
+namespace VamTech.Ecommerce.Infraestructure.Repositories
 {
     public class BrandRepository : BaseRepository<Brand>, IBrandRepository
     {
-        public BrandRepository(VamtechEcommerceContext context) : base(context) { }
+        public BrandRepository(VamTechEcommerceContext context) : base(context) { }
 
         public async Task<IEnumerable<Brand>> GetBrands()
         {

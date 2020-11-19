@@ -43,11 +43,19 @@ namespace VamTech.Ecommerce.Core.Services
             filters.OrderingCriterionId = filters.OrderingCriterionId is null ? 0 : filters.OrderingCriterionId;
             filters.CategoryId = filters.CategoryId is null ? 0 : filters.CategoryId;
             filters.SubcategoryId = filters.SubcategoryId is null ? 0 : filters.SubcategoryId;
+            filters.BrandId = filters.BrandId is null ? 0 : filters.BrandId;
+            filters.OfferTypeId = filters.OfferTypeId is null ? 0 : filters.OfferTypeId;
+            filters.MinSalePrice = filters.MinSalePrice is null ? -1 : filters.MinSalePrice;
+            filters.MaxSalePrice = filters.MaxSalePrice is null ? -1 : filters.MaxSalePrice;
 
             var Products = _unitOfWork.ProductRepository.GetAll().Where(x => (x.IsFeatured == filters.IsFeatured || filters.IsFeatured ==-1)
                                       && (x.LongDesc.ToUpper().Contains(filters.TextToFind.ToUpper()) || filters.TextToFind.Trim().Length == 0)
                                       &&(x.Categories.Any(x=> x.Subcategory.CategoryId == filters.CategoryId || filters.CategoryId == 0))
                                       && (x.Categories.Any(x => x.SubcategoryId == filters.SubcategoryId || filters.SubcategoryId == 0))
+                                      && (x.BrandId == filters.BrandId || filters.BrandId == 0)
+                                      && ((x.ActiveOffer != null && x.ActiveOffer.Offer.OfferTypeId == filters.OfferTypeId) || filters.OfferTypeId == 0)
+                                      && (x.SalePrice >= filters.MinSalePrice || filters.MinSalePrice == -1)
+                                      && (x.SalePrice <= filters.MaxSalePrice || filters.MaxSalePrice == -1)
                                      );
 
             switch (filters.OrderingCriterionId)

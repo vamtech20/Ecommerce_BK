@@ -8,14 +8,14 @@ using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Infraestructure.Data;
 
-namespace VamTech.Ecommerce.Infrastructure.Repositories
+namespace VamTech.Ecommerce.Infraestructure.Repositories
 {
     public class BaseRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly VamtechEcommerceContext _context;
+        private readonly VamTechEcommerceContext _context;
         protected readonly DbSet<T> _entities;
 
-        public BaseRepository(VamtechEcommerceContext context)
+        public BaseRepository(VamTechEcommerceContext context)
         {
             _context = context;
             _entities = context.Set<T>();

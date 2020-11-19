@@ -3,17 +3,17 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using VamTech.Ecommerce.Core.Entities;
-using VamTech.Ecommerce.Infrastructure.Data.Configurations;
+using VamTech.Ecommerce.Infraestructure.Data.Configurations;
 
 namespace VamTech.Ecommerce.Infraestructure.Data
 {
-    public partial class VamtechEcommerceContext :  IdentityDbContext
+    public partial class VamTechEcommerceContext :  IdentityDbContext
     {
-        public VamtechEcommerceContext()
+        public VamTechEcommerceContext()
         {
         }
 
-        public VamtechEcommerceContext(DbContextOptions<VamtechEcommerceContext> options)
+        public VamTechEcommerceContext(DbContextOptions<VamTechEcommerceContext> options)
             : base(options)
         {
         }
