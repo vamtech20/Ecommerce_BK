@@ -68,8 +68,13 @@ namespace VamTech.Ecommerce.Infraestructure.Mappings
             CreateMap<ProductDto, Product>();
             CreateMap<Product, ProductDto>();
 
-
-
+            CreateMap<CompanyDto, Company>();
+            
+            //CreateMap<Company, CompanyDto>();
+            var companyMappingExpression = CreateMap<Company, CompanyDto>();
+            companyMappingExpression.ForMember(dto => dto.CountryName, mc => mc.MapFrom(e => e.Province.Country.ShortDesc));
+            companyMappingExpression.ForMember(dto => dto.ProvinceName, mc => mc.MapFrom(e => e.Province.ShortDesc));
+            companyMappingExpression.ForMember(dto => dto.CityName, mc => mc.MapFrom(e => e.City.ShortDesc));
 
         }
     }

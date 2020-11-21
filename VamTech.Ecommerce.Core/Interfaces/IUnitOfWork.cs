@@ -14,6 +14,8 @@ namespace VamTech.Ecommerce.Core.Interfaces
 
         IBrandRepository BrandRepository { get; }
 
+        ICompanyRepository CompanyRepository { get; }
+
 
         void SaveChanges();
                 Task SaveChangesAsync();

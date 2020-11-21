@@ -28,6 +28,8 @@ namespace VamTech.Ecommerce.Infraestructure.Data.Configurations
 
             builder.Property(e => e.Sku).HasColumnName("SKU");
 
+            builder.Property(e => e.StockOnHand).HasColumnName("StockOnHand");
+
             builder.Property(e => e.IsFeatured).HasColumnType("numeric(1, 0)");
 
             builder.HasOne(d => d.Brand)
