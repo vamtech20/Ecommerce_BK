@@ -3,17 +3,17 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using VamTech.Ecommerce.Core.Entities;
-using VamTech.Ecommerce.Infrastructure.Data.Configurations;
+using VamTech.Ecommerce.Infraestructure.Data.Configurations;
 
 namespace VamTech.Ecommerce.Infraestructure.Data
 {
-    public partial class VamtechEcommerceContext :  IdentityDbContext
+    public partial class VamTechEcommerceContext :  IdentityDbContext
     {
-        public VamtechEcommerceContext()
+        public VamTechEcommerceContext()
         {
         }
 
-        public VamtechEcommerceContext(DbContextOptions<VamtechEcommerceContext> options)
+        public VamTechEcommerceContext(DbContextOptions<VamTechEcommerceContext> options)
             : base(options)
         {
         }
@@ -46,85 +46,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
             base.OnModelCreating(modelBuilder);
                        
 
-            modelBuilder.Entity<City>(entity =>
-            {
-                entity.HasKey(e => e.CityId)
-                    .HasName("PK10_1")
-                    .IsClustered(false);
-
-                entity.ToTable("City", "Logistics");
-
-                entity.Property(e => e.LongDesc).HasMaxLength(100);
-
-                entity.Property(e => e.ShortDesc).HasMaxLength(4);
-
-                entity.HasOne(d => d.Provincia)
-                    .WithMany(p => p.City)
-                    .HasForeignKey(d => d.ProvinciaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefProvince15");
-            });
-
-            modelBuilder.Entity<Company>(entity =>
-            {
-                entity.HasKey(e => e.CompanyId)
-                    .HasName("PK4")
-                    .IsClustered(false);
-
-                entity.ToTable("Company", "Logistics");
-
-                entity.Property(e => e.Address).HasMaxLength(200);
-
-                entity.Property(e => e.IsPos)
-                    .HasColumnName("IsPOS")
-                    .HasColumnType("numeric(1, 0)");
-
-                entity.Property(e => e.IsSupplier).HasColumnType("numeric(1, 0)");
-
-                entity.Property(e => e.Latitude).HasColumnType("numeric(10, 6)");
-
-                entity.Property(e => e.Length).HasColumnType("numeric(10, 6)");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.PostalCode).HasMaxLength(50);
-
-                entity.Property(e => e.StateId).HasColumnType("numeric(2, 0)");
-
-                entity.HasOne(d => d.City)
-                    .WithMany(p => p.Company)
-                    .HasForeignKey(d => d.CityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefCity3");
-
-                entity.HasOne(d => d.Contry)
-                    .WithMany(p => p.Company)
-                    .HasForeignKey(d => d.ContryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefCountry2");
-
-                entity.HasOne(d => d.Provincia)
-                    .WithMany(p => p.Company)
-                    .HasForeignKey(d => d.ProvinciaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefProvince14");
-            });
-
-            modelBuilder.Entity<Country>(entity =>
-            {
-                entity.HasKey(e => e.ContryId)
-                    .HasName("PK10_2")
-                    .IsClustered(false);
-
-                entity.ToTable("Country", "Logistics");
-
-                entity.Property(e => e.LongDesc).HasMaxLength(100);
-
-                entity.Property(e => e.ShortDesc).HasMaxLength(4);
-            });
-            
+                     
             modelBuilder.Entity<ProductScore>(entity =>
             {
                 entity.HasKey(e => e.ProductScoreId)
@@ -146,25 +68,6 @@ namespace VamTech.Ecommerce.Infraestructure.Data
                     .HasForeignKey(d => d.ProductId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefProduct32");
-            });
-
-            modelBuilder.Entity<Province>(entity =>
-            {
-                entity.HasKey(e => e.ProvinciaId)
-                    .HasName("PK10")
-                    .IsClustered(false);
-
-                entity.ToTable("Province", "Logistics");
-
-                entity.Property(e => e.LongDesc).HasMaxLength(100);
-
-                entity.Property(e => e.ShortDesc).HasMaxLength(4);
-
-                entity.HasOne(d => d.Contry)
-                    .WithMany(p => p.Province)
-                    .HasForeignKey(d => d.ContryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefCountry13");
             });
 
             modelBuilder.Entity<PurchaseOrder>(entity =>
@@ -229,6 +132,10 @@ namespace VamTech.Ecommerce.Infraestructure.Data
             modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
             modelBuilder.ApplyConfiguration(new BehaviorConfiguration());
             modelBuilder.ApplyConfiguration(new BehaviorProductConfiguration());
+            modelBuilder.ApplyConfiguration(new CompanyConfiguration());
+            modelBuilder.ApplyConfiguration(new CountryConfiguration());
+            modelBuilder.ApplyConfiguration(new ProvinceConfiguration());
+            modelBuilder.ApplyConfiguration(new CityConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }

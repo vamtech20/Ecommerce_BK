@@ -7,17 +7,17 @@ namespace VamTech.Ecommerce.Core.Entities
     {
         public Province()
         {
-            City = new HashSet<City>();
-            Company = new HashSet<Company>();
+            Cities = new HashSet<City>();
+            Companies = new HashSet<Company>();
         }
 
-        public int ProvinciaId { get; set; }
+        //public int ProvinceId { get; set; }
         public string LongDesc { get; set; }
         public string ShortDesc { get; set; }
-        public int ContryId { get; set; }
+        public long CountryId { get; set; }
 
-        public virtual Country Contry { get; set; }
-        public virtual ICollection<City> City { get; set; }
-        public virtual ICollection<Company> Company { get; set; }
+        public virtual Country Country { get; set; }
+        public virtual ICollection<City> Cities { get; set; }
+        public virtual ICollection<Company> Companies { get; set; }
     }
 }

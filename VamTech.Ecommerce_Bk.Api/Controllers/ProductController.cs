@@ -8,7 +8,7 @@ using VamTech.Ecommerce.Core.DTOs;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Core.QueryFilters;
-using VamTech.Ecommerce.Infrastructure.Interfaces;
+using VamTech.Ecommerce.Infraestructure.Interfaces;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -42,6 +42,7 @@ namespace VamTech.Ecommerce.Api.Controllers
         [HttpGet(Name = nameof(GetProducts))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<ProductDto>>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        //[Authorize(Policy = "PolicyCliente")]
         public IActionResult GetProducts([FromQuery]ProductQueryFilter filters)
         {
             

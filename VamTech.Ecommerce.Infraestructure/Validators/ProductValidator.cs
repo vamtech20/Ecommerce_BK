@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace VamTech.Ecommerce.Infrastructure.Validators
+namespace VamTech.Ecommerce.Infraestructure.Validators
 {
     public class ProductValidator : AbstractValidator<ProductDto>
     {

@@ -15,6 +15,7 @@ namespace VamTech.Ecommerce.Core.DTOs
         public string Presentation { get; set; }
         public BrandDto Brand { get; set; }
         public decimal IsFeatured { get; set; }
+        public int StockOnHand { get; set; }
 
         public string FullDescription { get; set; }
 

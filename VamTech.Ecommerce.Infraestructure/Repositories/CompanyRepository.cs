@@ -12,11 +12,11 @@ using VamTech.Ecommerce.Infraestructure.Repositories;
 
 namespace VamTech.Ecommerce.Infraestructure.Repositories
 {
-    public class BrandRepository : BaseRepository<Brand>, IBrandRepository
+    public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
     {
-        public BrandRepository(VamTechEcommerceContext context) : base(context) { }
+        public CompanyRepository(VamTechEcommerceContext context) : base(context) { }
 
-        public async Task<IEnumerable<Brand>> GetBrands()
+        public async Task<IEnumerable<Company>> GetCompanies()
         {
             return await _entities.ToListAsync();
         }

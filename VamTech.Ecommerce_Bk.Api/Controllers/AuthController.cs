@@ -9,7 +9,7 @@ using VamTech.Ecommerce.Api.Interfaces;
 using VamTech.Ecommerce.Api.Services;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
-using VamTech.Ecommerce.Infrastructure.Services;
+using VamTech.Ecommerce.Infraestructure.Services;
 
 namespace VamTech.Ecommerce.Api.Controllers
 {
@@ -34,13 +34,15 @@ namespace VamTech.Ecommerce.Api.Controllers
             {
                 var result = await _userService.RegisterUserAsync(model);
 
+                
+
                 if (result.IsSuccess)
                     return Ok(result); // Status Code: 200 
 
                 return BadRequest(result);
             }
 
-            return BadRequest("Some properties are not valid"); // Status code: 400
+            return BadRequest("Algunas propiedades no son validas"); // Status code: 400
         }
 
         // /api/auth/login
@@ -62,7 +64,7 @@ namespace VamTech.Ecommerce.Api.Controllers
                 return BadRequest(result);
             }
 
-            return BadRequest("Some properties are not valid");
+            return BadRequest("Algunas propiedades no son validas");
         }
 
         // /api/auth/confirmemail?userid&token
@@ -111,7 +113,7 @@ namespace VamTech.Ecommerce.Api.Controllers
                 return BadRequest(result);
             }
 
-            return BadRequest("Some properties are not valid");
+            return BadRequest("Algunas propiedades no son validas");
         }
 
 

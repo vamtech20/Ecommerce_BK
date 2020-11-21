@@ -52,8 +52,8 @@ namespace VamTech.Ecommerce.Core.Services
                                       && (x.LongDesc.ToUpper().Contains(filters.TextToFind.ToUpper()) || filters.TextToFind.Trim().Length == 0)
                                       &&(x.Categories.Any(x=> x.Subcategory.CategoryId == filters.CategoryId || filters.CategoryId == 0))
                                       && (x.Categories.Any(x => x.SubcategoryId == filters.SubcategoryId || filters.SubcategoryId == 0))
-                                      && (x.BrandId  == filters.BrandId || filters.BrandId == 0)
-                                      && ((x.ActiveOffer != null && x.ActiveOffer.Offer.OfferTypeId == filters.OfferTypeId) || filters.OfferTypeId == -1)
+                                      && (x.BrandId == filters.BrandId || filters.BrandId == 0)
+                                      && ((x.ActiveOffer != null && x.ActiveOffer.Offer.OfferTypeId == filters.OfferTypeId) || filters.OfferTypeId == 0)
                                       && (x.SalePrice >= filters.MinSalePrice || filters.MinSalePrice == -1)
                                       && (x.SalePrice <= filters.MaxSalePrice || filters.MaxSalePrice == -1)
                                      );
