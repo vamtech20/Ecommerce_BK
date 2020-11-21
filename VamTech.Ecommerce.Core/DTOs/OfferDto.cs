@@ -6,6 +6,8 @@ namespace VamTech.Ecommerce.Core.DTOs
 {
     public class OfferDto
     {
+
+        public long Id { get; set; }
         public DateTime? ValidFrom { get; set; }
         public DateTime? ValidTo { get; set; }
         public decimal? TotalPriceOffer { get; set; }

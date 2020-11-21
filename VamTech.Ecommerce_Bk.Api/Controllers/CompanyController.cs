@@ -21,37 +21,42 @@ namespace VamTech.Ecommerce.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class OfferTypeController : ControllerBase
+    public class CompanyController : ControllerBase
     {
-        private readonly IOfferService _offerService;
+        private readonly ILogisticService _logisticService;
         private readonly IMapper _mapper;
         private readonly IUriService _uriService;
 
-        public OfferTypeController(IOfferService offerService, IMapper mapper, IUriService uriService)
+        public CompanyController(ILogisticService logisticService, IMapper mapper, IUriService uriService)
         {
-            _offerService = offerService;
+            _logisticService = logisticService;
             _mapper = mapper;
             _uriService = uriService;
         }
 
         /// <summary>
-        /// Retrieve all Offer Types
+        /// Retrieve all Brands
         /// </summary>
         /// <returns></returns>
-        [HttpGet(Name = nameof(GetOfferTypes))]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<OfferTypeDto>>))]
+        [HttpGet(Name = nameof(GetCompanies))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<CompanyDto>>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult GetOfferTypes()
+        public IActionResult GetCompanies([FromQuery] CompanyQueryFilter filters)
         {
-            var offerTypes = _offerService.GetOfferTypes();
+            var metadata = new Metadata();
 
-            var response = new ApiResponse<IEnumerable<OfferTypeDto>>(offerTypes)
+            var companies = _logisticService.GetCompanies(filters, Url.RouteUrl(nameof(GetCompanies)), out metadata);
+
+            var response = new ApiResponse<IEnumerable<CompanyDto>>(companies)
             {
-               
+                Meta = metadata
             };
 
-           
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
             return Ok(response);
+
+           
         }
 
        
