@@ -60,5 +60,38 @@ namespace VamTech.Ecommerce.Core.Services
            
         }
 
+        public async Task<CompanyDto> GetCompany(int id)
+        {
+            var comp = await _unitOfWork.CompanyRepository.GetById(id);
+            return   _mapper.Map<CompanyDto>(comp);
+        }
+
+
+        public async Task InsertCompany(CompanyDto Company)
+        {
+            var comp = _mapper.Map<Company>(Company);
+            await _unitOfWork.CompanyRepository.Add(comp);
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<bool> UpdateCompany(CompanyDto Company)
+        {
+            var existingCompany = await _unitOfWork.CompanyRepository.GetById(Company.Id);
+
+            //existingCompany.Image = Company.Image;
+            //existingCompany.Description = Company.Description;
+
+            _unitOfWork.CompanyRepository.Update(existingCompany);
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeleteCompany(int id)
+        {
+            await _unitOfWork.CompanyRepository.Delete(id);
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+        }
+
     }
 }
