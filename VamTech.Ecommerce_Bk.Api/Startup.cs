@@ -25,7 +25,6 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using VamTech.Ecommerce.Infraestructure.Data;
 using VamTech.Ecommerce.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using VamTech.Ecommerce.Api.Services;
