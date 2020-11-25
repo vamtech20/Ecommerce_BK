@@ -58,7 +58,45 @@ namespace VamTech.Ecommerce.Api.Controllers
 
            
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCompany(int id)
+        {
+            var Company = await _logisticService.GetCompany(id);
+            var CompanyDto = _mapper.Map<CompanyDto>(Company);
+            var response = new ApiResponse<CompanyDto>(CompanyDto);
+            return Ok(response);
+        }
 
-       
+        [HttpPost]
+        public async Task<IActionResult> Company(CompanyDto CompanyDto)
+        {
+           
+            await _logisticService.InsertCompany(CompanyDto);
+                        
+            var response = new ApiResponse<CompanyDto>(CompanyDto);
+            return Ok(response);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Put(int id, CompanyDto CompanyDto)
+        {
+
+            CompanyDto.Id = id;
+
+            var result = await _logisticService.UpdateCompany(CompanyDto);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _logisticService.DeleteCompany(id);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
+        }
+
+
     }
 }

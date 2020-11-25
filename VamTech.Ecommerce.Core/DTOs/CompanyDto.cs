@@ -14,6 +14,10 @@ namespace VamTech.Ecommerce.Core.DTOs
         public decimal? Length { get; set; }
         public decimal StateId { get; set; }
         public string PostalCode { get; set; }
+
+        public long CountryId { get; set; }
+        public long CityId { get; set; }
+        public long ProvinceId { get; set; }
         public string CountryName { get; set; }
         public string CityName { get; set; }
         public string ProvinceName { get; set; }

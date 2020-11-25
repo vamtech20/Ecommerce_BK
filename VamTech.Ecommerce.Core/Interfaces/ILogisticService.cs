@@ -11,5 +11,13 @@ namespace VamTech.Ecommerce.Core.Interfaces
     {
         IEnumerable<CompanyDto> GetCompanies(CompanyQueryFilter filters, string actionUrl, out Metadata metadata);
 
+        Task<CompanyDto> GetCompany(int id);
+
+        Task InsertCompany(CompanyDto Company);
+
+        Task<bool> UpdateCompany(CompanyDto Company);
+
+        Task<bool> DeleteCompany(int id);
+
     }
 }
