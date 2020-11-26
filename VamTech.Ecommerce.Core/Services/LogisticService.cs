@@ -80,6 +80,16 @@ namespace VamTech.Ecommerce.Core.Services
 
             //existingCompany.Image = Company.Image;
             //existingCompany.Description = Company.Description;
+            existingCompany.Name = Company.Name;
+            existingCompany.Address = Company.Address;
+            existingCompany.CityId = Company.CityId;
+            existingCompany.ProvinceId = Company.ProvinceId;
+            existingCompany.Latitude = Company.Latitude;
+            existingCompany.Length = Company.Length;
+            existingCompany.IsPos = Company.IsPos;
+            existingCompany.IsSupplier = Company.IsSupplier;
+            existingCompany.PostalCode = Company.PostalCode;
+            existingCompany.StateId = Company.StateId;
 
             _unitOfWork.CompanyRepository.Update(existingCompany);
             await _unitOfWork.SaveChangesAsync();
