@@ -25,7 +25,7 @@ namespace VamTech.Ecommerce.Core.Entities
         public string Presentation { get; set; }
         public long BrandId { get; set; }
         public decimal IsFeatured { get; set; }
-        public int StockOnHand { get; set; }
+        public int? StockOnHand { get; set; }
 
         public string FullDescription { get; set; }
 
