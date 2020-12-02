@@ -10,6 +10,8 @@ namespace VamTech.Ecommerce.Core.DTOs
         public  SubcategoryDto Subcategory { get; set; }
 
         public string CategoryDesc { get; set; }
+               
+        public long SubcategoryId { get; set; }
 
 
     }
