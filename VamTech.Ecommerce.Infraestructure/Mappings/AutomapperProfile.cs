@@ -53,7 +53,7 @@ namespace VamTech.Ecommerce.Infraestructure.Mappings
 
 
             CreateMap<ProductFeatureDto, ProductFeature>();
-            CreateMap<ProductFeatureDto, ProductFeature>();
+            CreateMap<BehaviorProductDto, BehaviorProduct>();
             CreateMap<ProductCategoryDto, ProductCategory>();
 
 
