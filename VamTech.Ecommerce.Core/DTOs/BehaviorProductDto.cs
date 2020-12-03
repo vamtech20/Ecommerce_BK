@@ -8,7 +8,7 @@ namespace VamTech.Ecommerce.Core.DTOs
     {
         public long BehaviorId { get; set; }
         public string BehaviorDesc { get; set; }
-      
-        
+
+        public virtual BehaviorDto Behavior { get; set; }
     }
 }

@@ -8,7 +8,8 @@ namespace VamTech.Ecommerce.Core.DTOs
     {
         public long FeatureId { get; set; }
         public string FeatureDesc { get; set; }
-      
-        
+
+        public virtual FeatureDto Feature { get; set; }
+
     }
 }
