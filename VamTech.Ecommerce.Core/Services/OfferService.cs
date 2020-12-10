@@ -67,5 +67,36 @@ namespace VamTech.Ecommerce.Core.Services
 
         }
 
+        public async Task<Offer> GetOffer(int id)
+        {
+            return await _unitOfWork.OfferRepository.GetById(id);
+        }
+
+        public async Task InsertOffer(Offer Offer)
+        {
+
+            await _unitOfWork.OfferRepository.Add(Offer);
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<bool> UpdateOffer(Offer Offer)
+        {
+            var existingOffer = await _unitOfWork.OfferRepository.GetById(Offer.Id);
+
+            //existingOffer.Image = Offer.Image;
+            //existingOffer.Description = Offer.Description;
+
+            _unitOfWork.OfferRepository.Update(existingOffer);
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<bool> DeleteOffer(int id)
+        {
+            await _unitOfWork.OfferRepository.Delete(id);
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+        }
+
     }
 }
