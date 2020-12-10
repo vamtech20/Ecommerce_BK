@@ -14,6 +14,13 @@ namespace VamTech.Ecommerce.Core.Interfaces
 
         IEnumerable<OfferTypeDto> GetOfferTypes();
 
+        Task<Offer> GetOffer(int id);
+        Task InsertOffer(Offer offer);
+
+        Task<bool> UpdateOffer(Offer offer);
+
+        Task<bool> DeleteOffer(int id);
+
 
     }
 }
