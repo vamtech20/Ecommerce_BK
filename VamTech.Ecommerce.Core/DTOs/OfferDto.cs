@@ -12,6 +12,8 @@ namespace VamTech.Ecommerce.Core.DTOs
         public DateTime? ValidTo { get; set; }
         public decimal? TotalPriceOffer { get; set; }
 
+        public long OfferTypeId { get; set; }
+
         public OfferTypeDto OfferType { get; set; }
 
         public virtual ICollection<OfferDetailDto> Details { get; set; }
