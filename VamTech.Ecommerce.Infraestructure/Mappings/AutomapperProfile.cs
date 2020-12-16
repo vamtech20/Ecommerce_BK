@@ -76,6 +76,12 @@ namespace VamTech.Ecommerce.Infraestructure.Mappings
             companyMappingExpression.ForMember(dto => dto.ProvinceName, mc => mc.MapFrom(e => e.Province.ShortDesc));
             companyMappingExpression.ForMember(dto => dto.CityName, mc => mc.MapFrom(e => e.City.ShortDesc));
 
+            CreateMap<PurchaseOrderDto, PurchaseOrder>();
+            CreateMap<PurchaseOrder, PurchaseOrderDto>();
+
+            CreateMap<PurchaseOrderDetailDto, PurchaseOrderDetail>();
+            CreateMap<PurchaseOrderDetail, PurchaseOrderDetailDto>();
+
         }
     }
 }

@@ -7,10 +7,10 @@ namespace VamTech.Ecommerce.Core.Entities
     {
         public PurchaseOrder()
         {
-            PurchaseOrderDetail = new HashSet<PurchaseOrderDetail>();
+            Products = new HashSet<PurchaseOrderDetail>();
         }
 
-        public long PurchaseOrderId { get; set; }
+        //public long PurchaseOrderId { get; set; }
         public DateTime OrderDate { get; set; }
         public int StateId { get; set; }
         public long ClientId { get; set; }
@@ -18,6 +18,6 @@ namespace VamTech.Ecommerce.Core.Entities
 
         public virtual Client Client { get; set; }
         public virtual Company Company { get; set; }
-        public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+        public virtual ICollection<PurchaseOrderDetail> Products { get; set; }
     }
 }
