@@ -109,6 +109,7 @@ namespace VamTech.Ecommerce.Api
             services.AddTransient<IOfferService, OfferService>();
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ILogisticService, LogisticService>();
+            services.AddTransient<IOrderService, OrderService>();
 
             services.AddSingleton<IAuthorizationHandler, ProfileHandler>();
 

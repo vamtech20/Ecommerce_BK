@@ -69,55 +69,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefProduct32");
             });
-
-            modelBuilder.Entity<PurchaseOrder>(entity =>
-            {
-                entity.HasKey(e => e.PurchaseOrderId)
-                    .HasName("PK3")
-                    .IsClustered(false);
-
-                entity.ToTable("PurchaseOrder", "Orders");
-
-                entity.Property(e => e.OrderDate).HasColumnType("datetime");
-
-                entity.HasOne(d => d.Client)
-                    .WithMany(p => p.PurchaseOrder)
-                    .HasForeignKey(d => d.ClientId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefClient16");
-
-                entity.HasOne(d => d.Company)
-                    .WithMany(p => p.PurchaseOrder)
-                    .HasForeignKey(d => d.CompanyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefCompany23");
-            });
-
-            modelBuilder.Entity<PurchaseOrderDetail>(entity =>
-            {
-                entity.HasKey(e => e.PurchaseOrderDetailId)
-                    .HasName("PK5")
-                    .IsClustered(false);
-
-                entity.ToTable("PurchaseOrderDetail", "Orders");
-
-                entity.Property(e => e.SalePrice).HasColumnType("numeric(15, 2)");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.PurchaseOrderDetail)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefProduct221");
-
-                entity.HasOne(d => d.PurchaseOrder)
-                    .WithMany(p => p.PurchaseOrderDetail)
-                    .HasForeignKey(d => d.PurchaseOrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefPurchaseOrder17");
-            });
-
-           
-
+            
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new OfferConfiguration());
@@ -136,6 +88,8 @@ namespace VamTech.Ecommerce.Infraestructure.Data
             modelBuilder.ApplyConfiguration(new CountryConfiguration());
             modelBuilder.ApplyConfiguration(new ProvinceConfiguration());
             modelBuilder.ApplyConfiguration(new CityConfiguration());
+            modelBuilder.ApplyConfiguration(new PurchaseOrderConfiguration());
+            modelBuilder.ApplyConfiguration(new PurchaseOrderDetailConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }
