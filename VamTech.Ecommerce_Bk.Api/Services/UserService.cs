@@ -152,25 +152,17 @@ namespace VamTech.Ecommerce.Api.Services
 
             }
 
-
             var claims = new List<Claim>
             {
                 new Claim("Email", model.Email),
-                new Claim("FirstName", client.FirstName),
-                new Claim("LastName", client.LastName),
-                new Claim("MobilePhone", client.MobilePhone),
-                new Claim("HomePhone", client.HomePhone ?? ""),
+                //new Claim("FirstName", client.FirstName),
+                //new Claim("LastName", client.LastName),
+                //new Claim("MobilePhone", client.MobilePhone),
+                //new Claim("HomePhone", client.HomePhone ?? ""),
                 new Claim("Document", client.Document.ToString() ?? ""),
                 new Claim(_configuration["ClaimTypeProfile"].ToString(), profile),
                 new Claim(ClaimTypes.NameIdentifier, user.Id)
             };
-
-           
-
-
-
-           
-            
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Authentication:SecretKey"]));
 
@@ -185,9 +177,16 @@ namespace VamTech.Ecommerce.Api.Services
 
             return new UserManagerResponse
             {
-                Message = tokenAsString,
+                ClientId = client.Id,
+                Message = "",
+                Token = tokenAsString,
                 IsSuccess = true,
-                ExpireDate = token.ValidTo
+                ExpireDate = token.ValidTo,
+                UserName = model.Email,
+                FirstName = client.FirstName,
+                LastName = client.LastName,
+                Document = client.Document.ToString() ?? "",
+                Profile = profile
             };
         }
 
