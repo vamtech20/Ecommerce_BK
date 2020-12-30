@@ -83,8 +83,12 @@ namespace VamTech.Ecommerce.Core.Services
         {
             var existingOffer = await _unitOfWork.OfferRepository.GetById(Offer.Id);
 
-            //existingOffer.Image = Offer.Image;
-            //existingOffer.Description = Offer.Description;
+            existingOffer.OfferTypeId = Offer.OfferTypeId;
+            existingOffer.OfferTypeId = Offer.OfferTypeId;
+            existingOffer.ValidFrom = Offer.ValidFrom;
+            existingOffer.ValidTo = Offer.ValidTo;
+            existingOffer.TotalPriceOffer = Offer.TotalPriceOffer;
+            existingOffer.Details = Offer.Details;
 
             _unitOfWork.OfferRepository.Update(existingOffer);
             await _unitOfWork.SaveChangesAsync();

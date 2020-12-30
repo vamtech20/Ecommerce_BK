@@ -113,8 +113,17 @@ namespace VamTech.Ecommerce.Core.Services
         {
             var existingProduct = await _unitOfWork.ProductRepository.GetById(Product.Id);
            
-            //existingProduct.Image = Product.Image;
-            //existingProduct.Description = Product.Description;
+            existingProduct.Description = Product.Description;
+            existingProduct.BrandId = Product.BrandId;
+            existingProduct.BarCode = Product.BarCode;
+            existingProduct.IsFeatured = Product.IsFeatured;
+            existingProduct.Sku = Product.Sku;
+            existingProduct.StockOnHand = Product.StockOnHand;
+            existingProduct.SalePrice = Product.SalePrice;
+            existingProduct.StockOnHand = Product.StockOnHand;
+            existingProduct.StockOnHand = Product.StockOnHand;
+            existingProduct.StockOnHand = Product.StockOnHand;
+            existingProduct.Categories = Product.Categories;
 
             _unitOfWork.ProductRepository.Update(existingProduct);
             await _unitOfWork.SaveChangesAsync();
