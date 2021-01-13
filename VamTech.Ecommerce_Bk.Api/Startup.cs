@@ -17,10 +17,10 @@ using VamTech.Ecommerce.Core.Services;
 using VamTech.Ecommerce.Infraestructure.Data;
 using VamTech.Ecommerce.Infraestructure.Extensions;
 using VamTech.Ecommerce.Infraestructure.Filters;
-using VamTech.Ecommerce.Infraestructure.Interfaces;
+
 using VamTech.Ecommerce.Infraestructure.Options;
 using VamTech.Ecommerce.Infraestructure.Repositories;
-using VamTech.Ecommerce.Infraestructure.Services;
+
 using System;
 using System.IO;
 using System.Reflection;

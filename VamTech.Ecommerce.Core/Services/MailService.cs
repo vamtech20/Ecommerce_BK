@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using VamTech.Ecommerce.Infraestructure.Resources;
-using VamTech.Ecommerce.Infraestructure.Interfaces;
+using VamTech.Ecommerce.Core.Interfaces;
+using VamTech.Ecommerce.Core.Resources;
 
-namespace VamTech.Ecommerce.Infraestructure.Services
+namespace VamTech.Ecommerce.Core.Services
 {
     public class MailService : IMailService
     {

@@ -13,5 +13,9 @@ namespace VamTech.Ecommerce.Core.DTOs
         public string HomePhone { get; set; }
         public string MobilePhone { get; set; }
         public string Email { get; set; }
+
+        public string NewsletterMail { get; set; }
+
+        public int? NewsletterActive { get; set; }
     }
 }

@@ -14,5 +14,7 @@ namespace VamTech.Ecommerce.Core.Interfaces
         Uri GetCompanyPaginationUri(CompanyQueryFilter filter, string actionUrl);
 
         Uri GetPurchaseOrderPaginationUri(PurchaseOrderQueryFilter filter, string actionUrl);
+
+        Uri GetClientPaginationUri(ClientQueryFilter filter, string actionUrl);
     }
 }

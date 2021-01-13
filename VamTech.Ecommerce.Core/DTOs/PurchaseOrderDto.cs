@@ -12,6 +12,8 @@ namespace VamTech.Ecommerce.Core.DTOs
         public long ClientId { get; set; }
         public long CompanyId { get; set; }
 
+        public decimal TotalInvoiced { get; set; }
+
         public virtual ClientDto Client { get; set; }
         public virtual CompanyDto Company { get; set; }
         public virtual ICollection<PurchaseOrderDetailDto> Products { get; set; }

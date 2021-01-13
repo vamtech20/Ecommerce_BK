@@ -38,5 +38,11 @@ namespace VamTech.Ecommerce.Core.Services
             string baseUrl = $"{_baseUri}{actionUrl}";
             return new Uri(baseUrl);
         }
+
+        public Uri GetClientPaginationUri(ClientQueryFilter filter, string actionUrl)
+        {
+            string baseUrl = $"{_baseUri}{actionUrl}";
+            return new Uri(baseUrl);
+        }
     }
 }

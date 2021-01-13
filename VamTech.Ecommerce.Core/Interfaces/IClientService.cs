@@ -9,7 +9,7 @@ namespace VamTech.Ecommerce.Core.Interfaces
 {
     public interface IClientService
     {
-        PagedList<Client> GetClients(ClientQueryFilter filters);
+        IEnumerable<ClientDto> GetClients(ClientQueryFilter filters, string actionUrl, out Metadata metadata);
         Task<Client> GetClient(int id);
 
         Task InsertClient(Client client);

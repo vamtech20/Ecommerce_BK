@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using VamTech.Ecommerce.Core.CustomEntities;
@@ -17,14 +18,16 @@ namespace VamTech.Ecommerce.Core.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly PaginationOptions _paginationOptions;
         private readonly IMapper _mapper;
+        private readonly IUriService _uriService;
 
-        public ClientService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options, IMapper mapper)
+        public ClientService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options, IMapper mapper, IUriService uriService)
         {
             _unitOfWork = unitOfWork;
             _paginationOptions = options.Value;
             _mapper = mapper;
+            _uriService = uriService;
         }
-        public PagedList<Client> GetClients(ClientQueryFilter filters)
+        public IEnumerable<ClientDto> GetClients(ClientQueryFilter filters, string actionUrl, out Metadata metadata)
         {
             filters.PageNumber = filters.PageNumber == 0 ? _paginationOptions.DefaultPageNumber : filters.PageNumber;
             filters.PageSize = filters.PageSize == 0 ? _paginationOptions.DefaultPageSize : filters.PageSize;
@@ -32,8 +35,24 @@ namespace VamTech.Ecommerce.Core.Services
             var Clients = _unitOfWork.ClientRepository.GetAll();
 
 
-            var pagedProducts = PagedList<Client>.Create(Clients, filters.PageNumber, filters.PageSize);
-            return pagedProducts;
+            var pagedClients = PagedList<Client>.Create(Clients, filters.PageNumber, filters.PageSize);
+
+            var ClientsDtos = _mapper.Map<IEnumerable<ClientDto>>(pagedClients);
+
+            metadata = new Metadata
+            {
+                TotalCount = pagedClients.TotalCount,
+                PageSize = pagedClients.PageSize,
+                CurrentPage = pagedClients.CurrentPage,
+                TotalPages = pagedClients.TotalPages,
+                HasNextPage = pagedClients.HasNextPage,
+                HasPreviousPage = pagedClients.HasPreviousPage,
+                NextPageUrl = _uriService.GetClientPaginationUri(filters, actionUrl).ToString(),
+                PreviousPageUrl = _uriService.GetClientPaginationUri(filters, actionUrl).ToString()
+            };
+
+
+            return ClientsDtos;
         }
         public async Task<Client> GetClient(int id)
         {

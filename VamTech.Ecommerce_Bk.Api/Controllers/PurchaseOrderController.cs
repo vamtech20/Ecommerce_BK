@@ -8,7 +8,6 @@ using VamTech.Ecommerce.Core.DTOs;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Core.QueryFilters;
-using VamTech.Ecommerce.Infraestructure.Interfaces;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -26,12 +25,14 @@ namespace VamTech.Ecommerce.Api.Controllers
         private readonly IOrderService _orderService;
         private readonly IMapper _mapper;
         private readonly IUriService _uriService;
+        private readonly IMailService _mailService;
 
-        public PurchaseOrderController(IOrderService orderService, IMapper mapper, IUriService uriService)
+        public PurchaseOrderController(IOrderService orderService, IMapper mapper, IUriService uriService, IMailService mailService)
         {
             _orderService = orderService;
             _mapper = mapper;
             _uriService = uriService;
+            _mailService = mailService;
         }
 
         /// <summary>
@@ -73,9 +74,10 @@ namespace VamTech.Ecommerce.Api.Controllers
         public async Task<IActionResult> PurchaseOrder(PurchaseOrderDto poDto)
         {
             await _orderService.InsertPurchaseOrder(poDto);
-                      
-
             var response = new ApiResponse<PurchaseOrderDto>(poDto);
+
+            
+
             return Ok(response);
         }
 

@@ -12,9 +12,6 @@ using System.Threading.Tasks;
 using VamTech.Ecommerce.Api.Interfaces;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
-using VamTech.Ecommerce.Infraestructure.Interfaces;
-using VamTech.Ecommerce.Infraestructure.Services;
-using VamTech.Ecommerce.Infraestructure.Resources;
 using VamTech.Ecommerce.Core.Enumerations;
 
 namespace VamTech.Ecommerce.Api.Services
@@ -70,7 +67,7 @@ namespace VamTech.Ecommerce.Api.Services
 
                 
                 string[] recipients = { identityUser.Email };
-                 _mailService.ConfirmPassword(url, recipients);
+                await _mailService.ConfirmPassword(url, recipients);
 
                 //crear cliente
                 try

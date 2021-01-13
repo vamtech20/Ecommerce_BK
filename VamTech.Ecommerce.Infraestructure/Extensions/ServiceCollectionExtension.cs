@@ -13,9 +13,6 @@ using System.Reflection;
 using System.Text;
 using VamTech.Ecommerce.Infraestructure.Data;
 using VamTech.Ecommerce.Infraestructure.Repositories;
-using VamTech.Ecommerce.Infraestructure.Repositories;
-using VamTech.Ecommerce.Infraestructure.Interfaces;
-using VamTech.Ecommerce.Infraestructure.Services;
 using VamTech.Ecommerce.Infraestructure.Options;
 
 namespace VamTech.Ecommerce.Infraestructure.Extensions

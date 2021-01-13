@@ -17,6 +17,8 @@ namespace VamTech.Ecommerce.Infraestructure.Data.Configurations
 
             builder.ToTable("PurchaseOrder", "Orders");
 
+            builder.Property(e => e.TotalInvoiced).HasColumnType("numeric(18, 2)");
+
             builder.Property(e => e.OrderDate).HasColumnType("datetime");
 
             builder.HasOne(d => d.Client)

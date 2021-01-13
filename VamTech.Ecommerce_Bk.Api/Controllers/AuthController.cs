@@ -9,7 +9,7 @@ using VamTech.Ecommerce.Api.Interfaces;
 using VamTech.Ecommerce.Api.Services;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
-using VamTech.Ecommerce.Infraestructure.Services;
+
 
 namespace VamTech.Ecommerce.Api.Controllers
 {

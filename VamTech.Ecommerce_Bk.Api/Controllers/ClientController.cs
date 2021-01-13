@@ -20,34 +20,34 @@ namespace VamTech.Ecommerce.Api.Controllers
     [Route("api/[controller]")]
     [ApiController]
     //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-    public class OfferController : ControllerBase
+    public class ClientController : ControllerBase
     {
-        private readonly IOfferService _offerService;
+        private readonly IClientService _clientService;
         private readonly IMapper _mapper;
         private readonly IUriService _uriService;
 
-        public OfferController(IOfferService OfferService, IMapper mapper, IUriService uriService)
+        public ClientController(IClientService clientService, IMapper mapper, IUriService uriService)
         {
-            _offerService = OfferService;
+            _clientService = clientService;
             _mapper = mapper;
             _uriService = uriService;
         }
 
         /// <summary>
-        /// Retrieve all Offers
+        /// Retrieve all Clients
         /// </summary>
         /// <param name="filters">Filters to apply</param>
         /// <returns></returns>
-        [HttpGet(Name = nameof(GetOffers))]
-        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<OfferDto>>))]
+        [HttpGet(Name = nameof(GetClients))]
+        [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<ClientDto>>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public IActionResult GetOffers([FromQuery]OfferQueryFilter filters)
+        public IActionResult GetClients([FromQuery]ClientQueryFilter filters)
         {
             var metadata = new Metadata();
 
-            var offs = _offerService.GetOffers(filters, Url.RouteUrl(nameof(GetOffers)), out metadata);
+            var clients = _clientService.GetClients(filters, Url.RouteUrl(nameof(GetClients)), out metadata);
 
-            var response = new ApiResponse<IEnumerable<OfferDto>>(offs)
+            var response = new ApiResponse<IEnumerable<ClientDto>>(clients)
             {
                 Meta = metadata
             };
@@ -60,33 +60,33 @@ namespace VamTech.Ecommerce.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetOffer(int id)
+        public async Task<IActionResult> GetClient(int id)
         {
-            var Offer = await _offerService.GetOffer(id);
-            var OfferDto = _mapper.Map<OfferDto>(Offer);
-            var response = new ApiResponse<OfferDto>(OfferDto);
+            var Client = await _clientService.GetClient(id);
+            var ClientDto = _mapper.Map<ClientDto>(Client);
+            var response = new ApiResponse<ClientDto>(ClientDto);
             return Ok(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Offer(OfferDto OfferDto)
+        public async Task<IActionResult> Client(ClientDto ClientDto)
         {
-            var Offer = _mapper.Map<Offer>(OfferDto);
+            var Client = _mapper.Map<Client>(ClientDto);
 
-            await _offerService.InsertOffer(Offer);
+            await _clientService.InsertClient(Client);
 
-            OfferDto = _mapper.Map<OfferDto>(Offer);
-            var response = new ApiResponse<OfferDto>(OfferDto);
+            ClientDto = _mapper.Map<ClientDto>(Client);
+            var response = new ApiResponse<ClientDto>(ClientDto);
             return Ok(response);
         }
 
         [HttpPut]
-        public async Task<IActionResult> Put(int id, OfferDto OfferDto)
+        public async Task<IActionResult> Put(int id, ClientDto ClientDto)
         {
-            var Offer = _mapper.Map<Offer>(OfferDto);
-            Offer.Id = id;
+            var Client = _mapper.Map<Client>(ClientDto);
+            Client.Id = id;
 
-            var result = await _offerService.UpdateOffer(Offer);
+            var result = await _clientService.UpdateClient(Client);
             var response = new ApiResponse<bool>(result);
             return Ok(response);
         }
@@ -95,7 +95,7 @@ namespace VamTech.Ecommerce.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            var result = await _offerService.DeleteOffer(id);
+            var result = await _clientService.DeleteClient(id);
             var response = new ApiResponse<bool>(result);
             return Ok(response);
         }
