@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
@@ -10,6 +11,7 @@ using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Exceptions;
 using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Core.QueryFilters;
+using VamTech.Ecommerce.Core.Resources;
 
 namespace VamTech.Ecommerce.Core.Services
 {
@@ -18,14 +20,17 @@ namespace VamTech.Ecommerce.Core.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly PaginationOptions _paginationOptions;
         private readonly IMapper _mapper;
-         private readonly IUriService _uriService;
+        private readonly IUriService _uriService;
+        private IMailService _mailService;
+        private IConfiguration _configuration;
 
-        public OrderService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options, IMapper mapper, IUriService uriService)
+        public OrderService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options, IMapper mapper, IUriService uriService, IMailService mailService)
         {
             _unitOfWork = unitOfWork;
             _paginationOptions = options.Value;
             _mapper = mapper;
             _uriService = uriService;
+            _mailService = mailService;
         }
 
         public IEnumerable<PurchaseOrderDto> GetPurchaseOrders(PurchaseOrderQueryFilter filters, string actionUrl, out Metadata metadata)
@@ -65,9 +70,43 @@ namespace VamTech.Ecommerce.Core.Services
 
         public async Task InsertPurchaseOrder(PurchaseOrderDto po)
         {
-            var ped = _mapper.Map<PurchaseOrder>(po);
-            await _unitOfWork.PurchaseOrderRepository.Add(ped);
-            await _unitOfWork.SaveChangesAsync();
+            try
+            {
+                var ped = _mapper.Map<PurchaseOrder>(po);
+                await _unitOfWork.PurchaseOrderRepository.Add(ped);
+                await _unitOfWork.SaveChangesAsync();
+
+                await SendPODetailMail(po);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
+            
+        }
+        public Task<bool> SendPODetailMail(PurchaseOrderDto po)
+        {
+            string subj = string.Empty;
+            string body = string.Empty;
+            string[] recip = new string[1];
+
+            string body_h = string.Empty;
+            string body_d = string.Empty;
+
+
+            recip[0] = po.Client.Email;
+            subj = string.Format(Messages.PO_Subject, _configuration["Company"], po.Id);
+
+            body_h = string.Format(Messages.PO_Body_Header, po.OrderDate, po.Client.FirstName, po.TotalInvoiced);
+            foreach (var prd in po.Products)
+            {
+                body_d += "<td>" + prd.Product.Description + "</td><td>" + prd.Product.SalePrice + "</td><td>" + prd.Quantity + "</td><td>" + prd.Product.SalePrice * prd.Quantity;
+
+            }
+
+            return _mailService.SendMail(subj, body, recip);
         }
 
         public async Task<bool> UpdatePurchaseOrder(PurchaseOrderDto po)

@@ -156,6 +156,36 @@
   <data name="Password has been reset successfully" xml:space="preserve">
     <value>La contraseña fue reseteada correctamente</value>
   </data>
+  <data name="PO Body Detail" xml:space="preserve">
+    <value>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Producto&lt;/td&gt;
+    &lt;td&gt;Precio Unitario&lt;/td&gt;
+    &lt;td&gt;Cantidad&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+     {0}
+  &lt;/tr&gt;
+&lt;/table&gt;</value>
+  </data>
+  <data name="PO Body Footer" xml:space="preserve">
+    <value>&lt;table&gt;
+  &lt;tr&gt;
+    &lt;td&gt;Producto&lt;/td&gt;
+    &lt;td&gt;Descuento&lt;/td&gt;
+    &lt;td&gt;Sub Total&lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+     {0}
+  &lt;/tr&gt;
+&lt;/table&gt;</value>
+  </data>
+  <data name="PO Body Header" xml:space="preserve">
+    <value>&lt;p&gt; El dia  {0}  ud {1} genero un pedido satisfactoriamente con un monto facturado de {2}. Le informaremos a la brevedad en cuanto su pedido este listo para retirar de la farmacia  {3}   &lt;p&gt;  </value>
+  </data>
+  <data name="PO Subject" xml:space="preserve">
+    <value>{0} - Pedido N°  {1} generado satisfactoriamente</value>
+  </data>
   <data name="Reset Password body" xml:space="preserve">
     <value>Confirme su correo electrónico 
  &lt;h1&gt; Bienvenido a {0} &lt;/h1&gt;

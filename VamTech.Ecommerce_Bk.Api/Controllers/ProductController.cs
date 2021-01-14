@@ -8,7 +8,6 @@ using VamTech.Ecommerce.Core.DTOs;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Core.QueryFilters;
-using VamTech.Ecommerce.Infraestructure.Interfaces;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;

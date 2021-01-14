@@ -17,10 +17,10 @@ using VamTech.Ecommerce.Core.Services;
 using VamTech.Ecommerce.Infraestructure.Data;
 using VamTech.Ecommerce.Infraestructure.Extensions;
 using VamTech.Ecommerce.Infraestructure.Filters;
-using VamTech.Ecommerce.Infraestructure.Interfaces;
+
 using VamTech.Ecommerce.Infraestructure.Options;
 using VamTech.Ecommerce.Infraestructure.Repositories;
-using VamTech.Ecommerce.Infraestructure.Services;
+
 using System;
 using System.IO;
 using System.Reflection;
@@ -29,8 +29,9 @@ using VamTech.Ecommerce.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using VamTech.Ecommerce.Api.Services;
 using VamTech.Ecommerce.Api.Interfaces;
-using VamTech.Ecommerce.Api.Policies;
-using Microsoft.AspNetCore.Authorization;
+
+
+
 
 namespace VamTech.Ecommerce.Api
 {
@@ -63,44 +64,13 @@ namespace VamTech.Ecommerce.Api
                 //options.SuppressModelStateInvalidFilter = true;
             });
 
-           
 
             services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));
-            //services.Configure<IdentityOptions>(options =>
-            //{
-            //    // Password settings.
-            //    options.Password.RequireDigit = true;
-            //    options.Password.RequireLowercase = true;
-            //    options.Password.RequireNonAlphanumeric = true;
-            //    options.Password.RequireUppercase = false;
-            //    options.Password.RequiredLength = 6;
-            //    options.Password.RequiredUniqueChars = 1;
-
-            //    // Lockout settings.
-            //    options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-            //    options.Lockout.MaxFailedAccessAttempts = 5;
-            //    options.Lockout.AllowedForNewUsers = true;
-
-            //    // User settings.
-            //    options.User.AllowedUserNameCharacters =
-            //    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-            //    options.User.RequireUniqueEmail = false;
-            //});
 
 
             services.AddDbContext<VamTechEcommerceContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("VamTechEcommerce")).UseLazyLoadingProxies()
+                options.UseSqlServer(Configuration.GetConnectionString("VamtechEcommerce")).UseLazyLoadingProxies()
             );
-
-            services.AddAuthorization(options =>
-            {
-                //options.AddPolicy("PolicyPerfil", pol => pol.Requirements.Add(new ProfileRequirement()));
-                options.AddPolicy("PolicyAdmin", pol => pol.RequireClaim("Perfil", "ADMIN"));
-                options.AddPolicy("PolicyOperador", pol => pol.RequireClaim("Perfil", "OPERADOR"));
-                options.AddPolicy("PolicyCliente", pol => pol.RequireClaim("Perfil", "CLIENTE"));
-                options.AddPolicy("PolicyFarmacia", pol => pol.RequireClaim("Perfil", "FARMACIA"));
-
-            });
 
             services.AddScoped<IUserService, UserService>();
             services.AddTransient<IMailService, MailService>();
@@ -110,8 +80,6 @@ namespace VamTech.Ecommerce.Api
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<ILogisticService, LogisticService>();
             services.AddTransient<IOrderService, OrderService>();
-
-            services.AddSingleton<IAuthorizationHandler, ProfileHandler>();
 
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -126,7 +94,7 @@ namespace VamTech.Ecommerce.Api
 
             services.AddSwaggerGen(doc =>
             {
-                doc.SwaggerDoc("v1", new OpenApiInfo { Title = "VamTech Ecommerce API", Version = "v1" });
+                doc.SwaggerDoc("v1", new OpenApiInfo { Title = "Vamtech Ecommerce API", Version = "v1" });
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 doc.IncludeXmlComments(xmlPath);
@@ -200,8 +168,8 @@ namespace VamTech.Ecommerce.Api
 
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", "VamTech Ecommerce API V1");
-                options.RoutePrefix = string.Empty;
+                options.SwaggerEndpoint("../swagger/v1/swagger.json", "Vamtech Ecommerce API V1");
+                //options.RoutePrefix = string.Empty;
             });
 
             app.UseRouting();

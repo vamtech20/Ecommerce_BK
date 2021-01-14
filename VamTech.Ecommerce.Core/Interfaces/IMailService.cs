@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace VamTech.Ecommerce.Infraestructure.Interfaces
+namespace VamTech.Ecommerce.Core.Interfaces
 {
     public interface IMailService
     {

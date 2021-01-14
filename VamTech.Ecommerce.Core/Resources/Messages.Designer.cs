@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VamTech.Ecommerce.Infraestructure.Resources {
+namespace VamTech.Ecommerce.Core.Resources {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace VamTech.Ecommerce.Infraestructure.Resources {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VamTech.Ecommerce.Infraestructure.Resources.Messages", typeof(Messages).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("VamTech.Ecommerce.Core.Resources.Messages", typeof(Messages).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -166,6 +166,60 @@ namespace VamTech.Ecommerce.Infraestructure.Resources {
         internal static string Password_has_been_reset_successfully {
             get {
                 return ResourceManager.GetString("Password has been reset successfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;table&gt;
+        ///  &lt;tr&gt;
+        ///    &lt;td&gt;Producto&lt;/td&gt;
+        ///    &lt;td&gt;Precio Unitario&lt;/td&gt;
+        ///    &lt;td&gt;Cantidad&lt;/td&gt;
+        ///  &lt;/tr&gt;
+        ///  &lt;tr&gt;
+        ///     {0}
+        ///  &lt;/tr&gt;
+        ///&lt;/table&gt;.
+        /// </summary>
+        internal static string PO_Body_Detail {
+            get {
+                return ResourceManager.GetString("PO Body Detail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;table&gt;
+        ///  &lt;tr&gt;
+        ///    &lt;td&gt;Producto&lt;/td&gt;
+        ///    &lt;td&gt;Descuento&lt;/td&gt;
+        ///    &lt;td&gt;Sub Total&lt;/td&gt;
+        ///  &lt;/tr&gt;
+        ///  &lt;tr&gt;
+        ///     {0}
+        ///  &lt;/tr&gt;
+        ///&lt;/table&gt;.
+        /// </summary>
+        internal static string PO_Body_Footer {
+            get {
+                return ResourceManager.GetString("PO Body Footer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a &lt;p&gt; El dia  {0}  ud {1} genero un pedido satisfactoriamente con un monto facturado de {2}. Le informaremos a la brevedad en cuanto su pedido este listo para retirar de la farmacia  {3}   &lt;p&gt;  .
+        /// </summary>
+        internal static string PO_Body_Header {
+            get {
+                return ResourceManager.GetString("PO Body Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a {0} - Pedido N°  {1} generado satisfactoriamente.
+        /// </summary>
+        internal static string PO_Subject {
+            get {
+                return ResourceManager.GetString("PO Subject", resourceCulture);
             }
         }
         
