@@ -70,8 +70,16 @@ namespace VamTech.Ecommerce.Core.Services
         public async Task<bool> UpdateClient(Client client)
         {
             var existingItem = await _unitOfWork.ClientRepository.GetById(client.Id);
-          
 
+            existingItem.Document = client.Document;
+            existingItem.Email = client.Email;
+            existingItem.FirstName = client.FirstName;
+            existingItem.HomePhone = client.HomePhone;
+            existingItem.LastName = client.LastName;
+            existingItem.MobilePhone = client.MobilePhone;
+            existingItem.NewsletterActive = client.NewsletterActive;
+            existingItem.NewsletterMail = client.NewsletterMail;
+           
             _unitOfWork.ClientRepository.Update(existingItem);
             await _unitOfWork.SaveChangesAsync();
             return true;

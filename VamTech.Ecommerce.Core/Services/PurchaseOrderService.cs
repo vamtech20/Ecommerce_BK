@@ -24,22 +24,31 @@ namespace VamTech.Ecommerce.Core.Services
         private IMailService _mailService;
         private IConfiguration _configuration;
 
-        public OrderService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options, IMapper mapper, IUriService uriService, IMailService mailService)
+        public OrderService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options, IMapper mapper, IUriService uriService, IMailService mailService, IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
             _paginationOptions = options.Value;
             _mapper = mapper;
             _uriService = uriService;
             _mailService = mailService;
+            _configuration = configuration;
+
         }
 
         public IEnumerable<PurchaseOrderDto> GetPurchaseOrders(PurchaseOrderQueryFilter filters, string actionUrl, out Metadata metadata)
         {
             filters.PageNumber = filters.PageNumber == 0 ? _paginationOptions.DefaultPageNumber : filters.PageNumber;
             filters.PageSize = filters.PageSize == 0 ? _paginationOptions.DefaultPageSize : filters.PageSize;
+            filters.CompanyId = filters.CompanyId is null ? 0 : filters.CompanyId;
+            filters.Document = filters.Document is null ? 0 : filters.Document;
+            filters.StateId = filters.StateId is null ? -1 : filters.StateId;
 
-
-            var orders = _unitOfWork.PurchaseOrderRepository.GetAll();
+            var orders = _unitOfWork.PurchaseOrderRepository.GetAll()
+                .Where(x => (x.OrderDate >= filters.OrderDateFrom && x.OrderDate <= filters.OrderDateTo)
+                        && (x.StateId == filters.StateId || filters.StateId == -1)
+                        && (x.Client.Document == filters.Document || filters.Document == 0)
+                        && (x.CompanyId == filters.CompanyId || filters.CompanyId == 0)
+                       );
               
             var pagedOrders = PagedList<PurchaseOrder>.Create(orders, filters.PageNumber, filters.PageSize);
 

@@ -9,5 +9,18 @@ namespace VamTech.Ecommerce.Core.QueryFilters
         public int PageSize { get; set; }
 
         public int PageNumber { get; set; }
+
+        public DateTime OrderDateFrom { get; set; }
+
+        public DateTime OrderDateTo { get; set; }
+
+        public long? CompanyId { get; set; }
+
+        public int? Document { get; set; }
+
+        public int? StateId { get; set; }
+
+        
+        
     }
 }
