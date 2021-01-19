@@ -29,10 +29,10 @@ namespace VamTech.Ecommerce.Infraestructure.Data.Configurations
                  .IsRequired()
                  .HasMaxLength(100);
 
-            builder.Property(e => e.NewsletterMail)
-                   .HasMaxLength(100);
+            //builder.Property(e => e.NewsletterMail)
+            //       .HasMaxLength(100);
 
-            builder.Property(e => e.NewsletterActive).HasColumnName("NewsletterActive");
+            //builder.Property(e => e.NewsletterActive).HasColumnName("NewsletterActive");
 
             builder.Property(e => e.LastName)
                     .IsRequired()

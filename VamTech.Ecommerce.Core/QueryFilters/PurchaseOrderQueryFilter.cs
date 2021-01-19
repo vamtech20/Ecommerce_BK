@@ -16,7 +16,7 @@ namespace VamTech.Ecommerce.Core.QueryFilters
 
         public long? CompanyId { get; set; }
 
-        public int? Document { get; set; }
+        public decimal? Document { get; set; }
 
         public int? StateId { get; set; }
 

@@ -16,6 +16,6 @@ namespace VamTech.Ecommerce.Core.DTOs
 
         public string NewsletterMail { get; set; }
 
-        public int? NewsletterActive { get; set; }
+        public decimal? NewsletterActive { get; set; }
     }
 }

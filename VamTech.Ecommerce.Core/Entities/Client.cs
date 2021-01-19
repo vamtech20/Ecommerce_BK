@@ -20,7 +20,7 @@ namespace VamTech.Ecommerce.Core.Entities
 
         public string NewsletterMail { get; set; }
 
-        public int? NewsletterActive { get; set; }
+        public decimal? NewsletterActive { get; set; }
 
         public virtual ICollection<PurchaseOrder> PurchaseOrder { get; set; }
     }

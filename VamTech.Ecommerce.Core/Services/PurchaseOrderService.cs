@@ -46,10 +46,10 @@ namespace VamTech.Ecommerce.Core.Services
             var orders = _unitOfWork.PurchaseOrderRepository.GetAll()
                 .Where(x => (x.OrderDate >= filters.OrderDateFrom && x.OrderDate <= filters.OrderDateTo)
                         && (x.StateId == filters.StateId || filters.StateId == -1)
-                        && (x.Client.Document == filters.Document || filters.Document == 0)
+                        && ((x.Client.Document.HasValue &&  x.Client.Document == filters.Document) || filters.Document == 0)
                         && (x.CompanyId == filters.CompanyId || filters.CompanyId == 0)
                        );
-              
+
             var pagedOrders = PagedList<PurchaseOrder>.Create(orders, filters.PageNumber, filters.PageSize);
 
             var orderDtos = _mapper.Map<IEnumerable<PurchaseOrderDto>>(pagedOrders);
@@ -85,7 +85,7 @@ namespace VamTech.Ecommerce.Core.Services
                 await _unitOfWork.PurchaseOrderRepository.Add(ped);
                 await _unitOfWork.SaveChangesAsync();
 
-                await SendPODetailMail(po);
+                //await SendPODetailMail(po);
 
             }
             catch (Exception ex)
