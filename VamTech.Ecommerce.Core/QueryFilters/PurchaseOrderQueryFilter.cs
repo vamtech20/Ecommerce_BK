@@ -20,7 +20,9 @@ namespace VamTech.Ecommerce.Core.QueryFilters
 
         public int? StateId { get; set; }
 
-        
-        
+        public long? ClientId { get; set; }
+
+
+
     }
 }

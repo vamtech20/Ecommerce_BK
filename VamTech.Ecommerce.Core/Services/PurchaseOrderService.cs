@@ -44,12 +44,14 @@ namespace VamTech.Ecommerce.Core.Services
             filters.StateId = filters.StateId is null ? -1 : filters.StateId;
             filters.OrderDateFrom = filters.OrderDateFrom is null ? DateTime.Now.AddDays(-1825) : filters.OrderDateFrom;
             filters.OrderDateTo = filters.OrderDateTo is null ? DateTime.Now.AddDays(1825) : filters.OrderDateTo;
+            filters.ClientId = filters.ClientId is null ? 0 : filters.ClientId;
 
             var orders = _unitOfWork.PurchaseOrderRepository.GetAll()
                 .Where(x => (x.OrderDate >= filters.OrderDateFrom && x.OrderDate <= filters.OrderDateTo)
                         && (x.StateId == filters.StateId || filters.StateId == -1)
                         && ((x.Client.Document.HasValue &&  x.Client.Document == filters.Document) || filters.Document == 0)
                         && (x.CompanyId == filters.CompanyId || filters.CompanyId == 0)
+                        && (x.ClientId == filters.ClientId || filters.ClientId == 0)
                        );
 
             orders = orders.OrderByDescending(x => x.OrderDate); 
