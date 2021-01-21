@@ -20,5 +20,7 @@ namespace VamTech.Ecommerce.Core.Interfaces
         Task<bool> DeleteProduct(int id);
 
         IEnumerable<BrandDto> GetBrands();
+
+        Task<bool> HighlighProduct(int id, decimal isFeatured);
     }
 }

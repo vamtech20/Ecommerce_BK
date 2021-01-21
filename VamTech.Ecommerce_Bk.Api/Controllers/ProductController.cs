@@ -80,7 +80,7 @@ namespace VamTech.Ecommerce.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPut]
+        [HttpPut("Put")]
         public async Task<IActionResult> Put(int id, ProductDto ProductDto)
         {
             var Product = _mapper.Map<Product>(ProductDto);
@@ -96,6 +96,15 @@ namespace VamTech.Ecommerce.Api.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _ProductService.DeleteProduct(id);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
+        }
+
+        [HttpPut("Highligh")]
+        public async Task<IActionResult> Highligh(int id, decimal isFeatured)
+        {
+            
+            var result = await _ProductService.HighlighProduct(id, isFeatured);
             var response = new ApiResponse<bool>(result);
             return Ok(response);
         }

@@ -67,7 +67,7 @@ namespace VamTech.Ecommerce.Api.Services
 
                 
                 string[] recipients = { identityUser.Email };
-                await _mailService.ConfirmPassword(url, recipients);
+                //await _mailService.ConfirmPassword(url, recipients);
 
                 //crear cliente
                 try

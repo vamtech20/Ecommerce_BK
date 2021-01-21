@@ -42,6 +42,8 @@ namespace VamTech.Ecommerce.Core.Services
             filters.CompanyId = filters.CompanyId is null ? 0 : filters.CompanyId;
             filters.Document = filters.Document is null ? 0 : filters.Document;
             filters.StateId = filters.StateId is null ? -1 : filters.StateId;
+            filters.OrderDateFrom = filters.OrderDateFrom is null ? DateTime.Now.AddDays(-1825) : filters.OrderDateFrom;
+            filters.OrderDateTo = filters.OrderDateTo is null ? DateTime.Now.AddDays(1825) : filters.OrderDateTo;
 
             var orders = _unitOfWork.PurchaseOrderRepository.GetAll()
                 .Where(x => (x.OrderDate >= filters.OrderDateFrom && x.OrderDate <= filters.OrderDateTo)
@@ -50,6 +52,7 @@ namespace VamTech.Ecommerce.Core.Services
                         && (x.CompanyId == filters.CompanyId || filters.CompanyId == 0)
                        );
 
+            orders = orders.OrderByDescending(x => x.OrderDate); 
             var pagedOrders = PagedList<PurchaseOrder>.Create(orders, filters.PageNumber, filters.PageSize);
 
             var orderDtos = _mapper.Map<IEnumerable<PurchaseOrderDto>>(pagedOrders);

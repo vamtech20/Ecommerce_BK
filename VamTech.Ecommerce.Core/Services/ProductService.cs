@@ -144,5 +144,17 @@ namespace VamTech.Ecommerce.Core.Services
             return brandsDtos;
 
         }
+
+        public async Task<bool> HighlighProduct(int id, decimal isFeatured)
+        {
+            var existingProduct = await _unitOfWork.ProductRepository.GetById(id);
+
+           
+            existingProduct.IsFeatured = isFeatured;
+           
+            _unitOfWork.ProductRepository.Update(existingProduct);
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+        }
     }
 }

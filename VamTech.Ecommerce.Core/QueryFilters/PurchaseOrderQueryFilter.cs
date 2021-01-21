@@ -10,9 +10,9 @@ namespace VamTech.Ecommerce.Core.QueryFilters
 
         public int PageNumber { get; set; }
 
-        public DateTime OrderDateFrom { get; set; }
+        public DateTime? OrderDateFrom { get; set; }
 
-        public DateTime OrderDateTo { get; set; }
+        public DateTime? OrderDateTo { get; set; }
 
         public long? CompanyId { get; set; }
 
