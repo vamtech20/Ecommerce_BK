@@ -69,14 +69,14 @@ namespace VamTech.Ecommerce.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Product(ProductDto ProductDto)
+        public async Task<IActionResult> Product(ProductDto dto)
         {
-            var Product = _mapper.Map<Product>(ProductDto);
+            //var Product = _mapper.Map<Product>(ProductDto);
 
-            await _ProductService.InsertProduct(Product);
+            await _ProductService.InsertProduct(dto);
 
-            ProductDto = _mapper.Map<ProductDto>(Product);
-            var response = new ApiResponse<ProductDto>(ProductDto);
+            //ProductDto = _mapper.Map<ProductDto>(Product);
+            var response = new ApiResponse<ProductDto>(dto);
             return Ok(response);
         }
 

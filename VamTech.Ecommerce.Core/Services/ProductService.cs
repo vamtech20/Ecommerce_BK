@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using VamTech.Ecommerce.Core.CustomEntities;
@@ -20,13 +22,16 @@ namespace VamTech.Ecommerce.Core.Services
         private readonly PaginationOptions _paginationOptions;
         private readonly IMapper _mapper;
         private readonly IUriService _uriService;
+        private IConfiguration _configuration;
 
-        public ProductService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options, IMapper mapper, IUriService uriService)
+        public ProductService(IUnitOfWork unitOfWork, IOptions<PaginationOptions> options, IMapper mapper, IUriService uriService, IConfiguration configuration)
         {
             _unitOfWork = unitOfWork;
             _paginationOptions = options.Value;
             _mapper = mapper;
             _uriService = uriService;
+            _configuration = configuration;
+
         }
 
         public async Task<Product> GetProduct(int id)
@@ -102,10 +107,17 @@ namespace VamTech.Ecommerce.Core.Services
            
         }
 
-        public async Task InsertProduct(Product Product)
+        public async Task InsertProduct(ProductDto dto)
         {
-            
-            await _unitOfWork.ProductRepository.Add(Product);
+            foreach (var img in dto.Images)
+            {
+                img.ImageUrl = GetImgUrlAddress(img.Base64);
+
+            }
+
+
+            var prd = _mapper.Map<Product>(dto);
+            await _unitOfWork.ProductRepository.Add(prd);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -155,6 +167,30 @@ namespace VamTech.Ecommerce.Core.Services
             _unitOfWork.ProductRepository.Update(existingProduct);
             await _unitOfWork.SaveChangesAsync();
             return true;
+        }
+
+        public string GetImgUrlAddress(string ImgStr)
+        {
+            string urlAddress = _configuration["UrlImgAddressBase"];
+            //String path = HttpContext.Current.Server.MapPath("~/ImageStorage"); //Path
+            String path = _configuration["ImagesPath"];
+
+            //Check if directory exist
+            if (!System.IO.Directory.Exists(path))
+            {
+                System.IO.Directory.CreateDirectory(path); //Create directory if it doesn't exist
+            }
+
+            string imageName = Guid.NewGuid() + ".jpg";
+
+            //set the image path
+            string imgPath = Path.Combine(path, imageName);
+
+            byte[] imageBytes = Convert.FromBase64String(ImgStr);
+
+            File.WriteAllBytes(imgPath, imageBytes);
+
+            return urlAddress + imageName;
         }
     }
 }

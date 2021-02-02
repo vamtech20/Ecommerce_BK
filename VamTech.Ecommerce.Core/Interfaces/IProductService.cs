@@ -13,7 +13,7 @@ namespace VamTech.Ecommerce.Core.Interfaces
 
         Task<Product> GetProduct(int id);
 
-        Task InsertProduct(Product product);
+        Task InsertProduct(ProductDto dto);
 
         Task<bool> UpdateProduct(Product product);
 
