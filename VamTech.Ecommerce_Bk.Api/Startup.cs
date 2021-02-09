@@ -116,8 +116,10 @@ namespace VamTech.Ecommerce.Api
                 builder =>
                 {
                     builder.WithOrigins("http://localhost:53135",
-                                        "http://localhost:4200"
-                                        )
+                                        "http://localhost:4200",
+                                        "http://localhost:8091",
+                                        "http://168.197.51.233:8091",
+                                        "http://168.197.51.233:8091/ecommerceDesa")
                                         .AllowAnyHeader()
                                         .AllowAnyMethod();
                 });
