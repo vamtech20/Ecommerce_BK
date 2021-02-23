@@ -90,6 +90,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
             modelBuilder.ApplyConfiguration(new CityConfiguration());
             modelBuilder.ApplyConfiguration(new PurchaseOrderConfiguration());
             modelBuilder.ApplyConfiguration(new PurchaseOrderDetailConfiguration());
+            modelBuilder.ApplyConfiguration(new POStateTrackingConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }

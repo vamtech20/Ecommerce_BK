@@ -18,6 +18,8 @@ namespace VamTech.Ecommerce.Core.Interfaces
 
         IPurchaseOrderRepository PurchaseOrderRepository { get; }
 
+        IPOStateTrackingRepository POStateTrackingRepository { get; }
+
 
         void SaveChanges();
                 Task SaveChangesAsync();

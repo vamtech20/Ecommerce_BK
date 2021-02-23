@@ -54,7 +54,9 @@ namespace VamTech.Ecommerce.Infraestructure.Data.Configurations
                 .HasForeignKey(d => d.ProvinceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("RefProvince14");
+
            
+
 
         }
 

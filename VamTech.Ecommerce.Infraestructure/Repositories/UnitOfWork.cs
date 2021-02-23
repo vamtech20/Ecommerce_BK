@@ -18,6 +18,7 @@ namespace VamTech.Ecommerce.Infraestructure.Repositories
         private readonly IBrandRepository _brandRepository;
         private readonly ICompanyRepository _companyRepository;
         private readonly IPurchaseOrderRepository _purchaseOrderRepository;
+        private readonly IPOStateTrackingRepository _posStateTrackingRepository;
         //private readonly ICountryRepository _countryRepository;
         //private readonly IProvinceRepository _provinceRepository;
         //private readonly ICityRepository _provinceRepository;
@@ -43,6 +44,8 @@ namespace VamTech.Ecommerce.Infraestructure.Repositories
         public ICompanyRepository CompanyRepository => _companyRepository ?? new CompanyRepository(_context);
 
         public IPurchaseOrderRepository PurchaseOrderRepository => _purchaseOrderRepository ?? new PurchaseOrderRepository(_context);
+
+        public IPOStateTrackingRepository POStateTrackingRepository => _posStateTrackingRepository ?? new POStateTrackingRepository(_context);
 
 
 

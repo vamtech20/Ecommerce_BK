@@ -23,5 +23,9 @@ namespace VamTech.Ecommerce.Core.DTOs
         public string ProvinceName { get; set; }
         public decimal IsSupplier { get; set; }
         public decimal IsPos { get; set; }
+
+        public virtual ICollection<PurchaseOrderDto> Orders { get; set; }
+
+
     }
 }

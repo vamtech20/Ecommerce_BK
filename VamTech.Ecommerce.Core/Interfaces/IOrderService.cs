@@ -19,5 +19,7 @@ namespace VamTech.Ecommerce.Core.Interfaces
 
         Task<bool> DeletePurchaseOrder(int id);
 
+        Task<bool> UpdateStates(IEnumerable<POStateTrackingDto> states);
+
     }
 }
