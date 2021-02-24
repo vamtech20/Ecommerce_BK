@@ -11,5 +11,7 @@ namespace VamTech.Ecommerce.Core.Entities
         public long ProductId { get; set; }
 
         public virtual Product Product { get; set; }
+
+        //public string Base64 { get; set; }
     }
 }

@@ -6,6 +6,7 @@ namespace VamTech.Ecommerce.Core.DTOs
 {
     public class OfferTypeDto
     {
+        public long Id { get; set; }
         public string Description { get; set; }
         public decimal? PercDiscountDirect { get; set; }
         public int? PayN { get; set; }

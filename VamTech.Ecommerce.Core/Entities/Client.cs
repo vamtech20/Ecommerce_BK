@@ -18,6 +18,10 @@ namespace VamTech.Ecommerce.Core.Entities
         public string MobilePhone { get; set; }
         public string Email { get; set; }
 
+        public string NewsletterMail { get; set; }
+
+        public decimal? NewsletterActive { get; set; }
+
         public virtual ICollection<PurchaseOrder> PurchaseOrder { get; set; }
     }
 }

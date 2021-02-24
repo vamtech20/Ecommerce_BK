@@ -2,7 +2,7 @@
 using VamTech.Ecommerce.Core.DTOs;
 using VamTech.Ecommerce.Core.Entities;
 
-namespace VamTech.Ecommerce.Infrastructure.Mappings
+namespace VamTech.Ecommerce.Infraestructure.Mappings
 {
     public class AutomapperProfile : Profile
     {
@@ -15,7 +15,15 @@ namespace VamTech.Ecommerce.Infrastructure.Mappings
             CreateMap<OfferDto, Offer>();
 
 
-            CreateMap<OfferDetail, OfferDetailDto>();
+           
+            var offdetMappingExpression = CreateMap<OfferDetail, OfferDetailDto>();
+            //offdetMappingExpression.ForMember(dto => dto.Description, mc => mc.MapFrom(e => e.Offer.OfferType.Description));
+            //offdetMappingExpression.ForMember(dto => dto.PayN, mc => mc.MapFrom(e => e.Offer.OfferType.PayN));
+            //offdetMappingExpression.ForMember(dto => dto.TakeM, mc => mc.MapFrom(e => e.Offer.OfferType.TakeM));
+            //offdetMappingExpression.ForMember(dto => dto.PercDisc2unity, mc => mc.MapFrom(e => e.Offer.OfferType.PercDisc2unity));
+            //offdetMappingExpression.ForMember(dto => dto.PercDiscountDirect, mc => mc.MapFrom(e => e.Offer.OfferType.PercDiscountDirect));
+          
+
             CreateMap<OfferDetailDto, OfferDetail>();
                         
             CreateMap<OfferType, OfferTypeDto>();
@@ -27,25 +35,52 @@ namespace VamTech.Ecommerce.Infrastructure.Mappings
             CreateMap<BrandDto, Brand>();
             CreateMap<Brand, BrandDto>();
 
-            CreateMap<FeatureDto, FeatureDto>();
-            CreateMap<FeatureDto, FeatureDto>();
+            CreateMap<FeatureDto, Feature>();
+            CreateMap<Feature, FeatureDto>();
 
-            //CreateMap<ProductFeature, ProductFeatureDto>();
+            CreateMap<BehaviorDto, Behavior>();
+            CreateMap<Behavior, BehaviorDto>();
+
+
             var prdftMappingExpression = CreateMap<ProductFeature, ProductFeatureDto>();
             prdftMappingExpression.ForMember(dto => dto.FeatureDesc, mc => mc.MapFrom(e => e.Feature.Description));
 
+            var prdbvMappingExpression = CreateMap<BehaviorProduct, BehaviorProductDto>();
+            prdbvMappingExpression.ForMember(dto => dto.BehaviorDesc, mc => mc.MapFrom(e => e.Behavior.Description));
+
+            var prdcatMappingExpression = CreateMap<ProductCategory, ProductCategoryDto>();
+            prdcatMappingExpression.ForMember(dto => dto.CategoryDesc, mc => mc.MapFrom(e => e.Subcategory.Category.Description));
+
 
             CreateMap<ProductFeatureDto, ProductFeature>();
-            CreateMap<ProductFeatureDto, ProductFeature>();
+            CreateMap<BehaviorProductDto, BehaviorProduct>();
+            CreateMap<ProductCategoryDto, ProductCategory>();
 
-            //CreateMap<Product, ProductDto>();
-            var prdMappingExpression = CreateMap<Product, ProductDto>();
-            prdMappingExpression.ForMember(dto => dto.LongDesc, mc => mc.MapFrom(e => e.Description + "- "+ e.Brand.Description));
-          
+
+            CreateMap<CategoryDto, Category>();
+            CreateMap<Category, CategoryDto>();
+
+            CreateMap<SubcategoryDto, Subcategory>();
+            CreateMap<Subcategory, SubcategoryDto>();
+
+
+            // var prdMappingExpression = CreateMap<Product, ProductDto>();
             CreateMap<ProductDto, Product>();
+            CreateMap<Product, ProductDto>();
 
-          
+            CreateMap<CompanyDto, Company>();
+            
+            //CreateMap<Company, CompanyDto>();
+            var companyMappingExpression = CreateMap<Company, CompanyDto>();
+            companyMappingExpression.ForMember(dto => dto.CountryName, mc => mc.MapFrom(e => e.Province.Country.ShortDesc));
+            companyMappingExpression.ForMember(dto => dto.ProvinceName, mc => mc.MapFrom(e => e.Province.ShortDesc));
+            companyMappingExpression.ForMember(dto => dto.CityName, mc => mc.MapFrom(e => e.City.ShortDesc));
 
+            CreateMap<PurchaseOrderDto, PurchaseOrder>();
+            CreateMap<PurchaseOrder, PurchaseOrderDto>();
+
+            CreateMap<PurchaseOrderDetailDto, PurchaseOrderDetail>();
+            CreateMap<PurchaseOrderDetail, PurchaseOrderDetailDto>();
 
         }
     }

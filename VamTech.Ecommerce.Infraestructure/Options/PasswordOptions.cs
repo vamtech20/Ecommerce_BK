@@ -1,4 +1,4 @@
-﻿namespace VamTech.Ecommerce.Infrastructure.Options
+﻿namespace VamTech.Ecommerce.Infraestructure.Options
 {
     public class PasswordOptions
     {

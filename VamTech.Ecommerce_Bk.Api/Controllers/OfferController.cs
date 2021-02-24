@@ -8,7 +8,6 @@ using VamTech.Ecommerce.Core.DTOs;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Core.QueryFilters;
-using VamTech.Ecommerce.Infrastructure.Interfaces;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -44,22 +43,11 @@ namespace VamTech.Ecommerce.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         public IActionResult GetOffers([FromQuery]OfferQueryFilter filters)
         {
-            var Offers = _offerService.GetOffers(filters);
-            var OffersDtos = _mapper.Map<IEnumerable<OfferDto>>(Offers);
+            var metadata = new Metadata();
 
-            var metadata = new Metadata
-            {
-                TotalCount = Offers.TotalCount,
-                PageSize = Offers.PageSize,
-                CurrentPage = Offers.CurrentPage,
-                TotalPages = Offers.TotalPages,
-                HasNextPage = Offers.HasNextPage,
-                HasPreviousPage = Offers.HasPreviousPage,
-                NextPageUrl = _uriService.GetOfferPaginationUri(filters, Url.RouteUrl(nameof(GetOffers))).ToString(),
-                PreviousPageUrl = _uriService.GetOfferPaginationUri(filters, Url.RouteUrl(nameof(GetOffers))).ToString()
-            };
+            var offs = _offerService.GetOffers(filters, Url.RouteUrl(nameof(GetOffers)), out metadata);
 
-            var response = new ApiResponse<IEnumerable<OfferDto>>(OffersDtos)
+            var response = new ApiResponse<IEnumerable<OfferDto>>(offs)
             {
                 Meta = metadata
             };
@@ -67,47 +55,49 @@ namespace VamTech.Ecommerce.Api.Controllers
             Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
 
             return Ok(response);
+
+            
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetOffer(int id)
-        //{
-        //    var Offer = await _offerService.GetOffer(id);
-        //    var OfferDto = _mapper.Map<OfferDto>(Offer);
-        //    var response = new ApiResponse<OfferDto>(OfferDto);
-        //    return Ok(response);
-        //}
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetOffer(int id)
+        {
+            var Offer = await _offerService.GetOffer(id);
+            var OfferDto = _mapper.Map<OfferDto>(Offer);
+            var response = new ApiResponse<OfferDto>(OfferDto);
+            return Ok(response);
+        }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Offer(OfferDto OfferDto)
-        //{
-        //    var Offer = _mapper.Map<Offer>(OfferDto);
+        [HttpPost]
+        public async Task<IActionResult> Offer(OfferDto OfferDto)
+        {
+            var Offer = _mapper.Map<Offer>(OfferDto);
 
-        //    await _OfferService.InsertOffer(Offer);
+            await _offerService.InsertOffer(Offer);
 
-        //    OfferDto = _mapper.Map<OfferDto>(Offer);
-        //    var response = new ApiResponse<OfferDto>(OfferDto);
-        //    return Ok(response);
-        //}
+            OfferDto = _mapper.Map<OfferDto>(Offer);
+            var response = new ApiResponse<OfferDto>(OfferDto);
+            return Ok(response);
+        }
 
-        //[HttpPut]
-        //public async Task<IActionResult> Put(int id, OfferDto OfferDto)
-        //{
-        //    var Offer = _mapper.Map<Offer>(OfferDto);
-        //    Offer.Id = id;
+        [HttpPut]
+        public async Task<IActionResult> Put(int id, OfferDto OfferDto)
+        {
+            var Offer = _mapper.Map<Offer>(OfferDto);
+            Offer.Id = id;
 
-        //    var result = await _OfferService.UpdateOffer(Offer);
-        //    var response = new ApiResponse<bool>(result);
-        //    return Ok(response);
-        //}
+            var result = await _offerService.UpdateOffer(Offer);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
+        }
 
 
-        //[HttpDelete("{id}")]
-        //public async Task<IActionResult> Delete(int id)
-        //{
-        //    var result = await _OfferService.DeleteOffer(id);
-        //    var response = new ApiResponse<bool>(result);
-        //    return Ok(response);
-        //}
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var result = await _offerService.DeleteOffer(id);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
+        }
     }
 }

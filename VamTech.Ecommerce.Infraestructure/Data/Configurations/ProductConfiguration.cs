@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using VamTech.Ecommerce.Core.Entities;
 
-namespace VamTech.Ecommerce.Infrastructure.Data.Configurations
+namespace VamTech.Ecommerce.Infraestructure.Data.Configurations
 {
     public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
@@ -20,11 +20,15 @@ namespace VamTech.Ecommerce.Infrastructure.Data.Configurations
 
             builder.Property(e => e.Description).HasMaxLength(500);
 
+            builder.Property(e => e.FullDescription).HasMaxLength(4000);
+
             builder.Property(e => e.SalePrice).HasColumnType("decimal(15, 2)");
 
             builder.Property(e => e.Presentation).HasMaxLength(200);
 
             builder.Property(e => e.Sku).HasColumnName("SKU");
+
+            builder.Property(e => e.StockOnHand).HasColumnName("StockOnHand");
 
             builder.Property(e => e.IsFeatured).HasColumnType("numeric(1, 0)");
 

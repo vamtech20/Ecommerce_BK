@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Infraestructure.Data;
-using VamTech.Ecommerce.Infrastructure.Repositories;
+using VamTech.Ecommerce.Infraestructure.Repositories;
 
-namespace Vamtech.Ecommerce.Infrastructure.Repositories
+namespace VamTech.Ecommerce.Infraestructure.Repositories
 {
     public class ClientRepository : BaseRepository<Client>, IClientRepository
     {
-        public ClientRepository(VamtechEcommerceContext context) : base(context) { }
+        public ClientRepository(VamTechEcommerceContext context) : base(context) { }
         public async Task<IEnumerable<Client>> GetClients()
         {
             return await _entities.ToListAsync();

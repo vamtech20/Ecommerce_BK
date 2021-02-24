@@ -3,17 +3,17 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using VamTech.Ecommerce.Core.Entities;
-using VamTech.Ecommerce.Infrastructure.Data.Configurations;
+using VamTech.Ecommerce.Infraestructure.Data.Configurations;
 
 namespace VamTech.Ecommerce.Infraestructure.Data
 {
-    public partial class VamtechEcommerceContext :  IdentityDbContext
+    public partial class VamTechEcommerceContext :  IdentityDbContext
     {
-        public VamtechEcommerceContext()
+        public VamTechEcommerceContext()
         {
         }
 
-        public VamtechEcommerceContext(DbContextOptions<VamtechEcommerceContext> options)
+        public VamTechEcommerceContext(DbContextOptions<VamTechEcommerceContext> options)
             : base(options)
         {
         }
@@ -44,118 +44,9 @@ namespace VamTech.Ecommerce.Infraestructure.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+                       
 
-            modelBuilder.Entity<Behavior>(entity =>
-            {
-                entity.HasKey(e => e.BehaviorId)
-                    .HasName("PK17_1")
-                    .IsClustered(false);
-
-                entity.ToTable("Behavior", "Products");
-
-                entity.Property(e => e.Description).HasMaxLength(500);
-            });
-
-            modelBuilder.Entity<BehaviorProduct>(entity =>
-            {
-                entity.HasKey(e => e.BehaviorProductId)
-                    .HasName("PK19")
-                    .IsClustered(false);
-
-                entity.ToTable("BehaviorProduct", "Products");
-
-                entity.HasOne(d => d.Behavior)
-                    .WithMany(p => p.BehaviorProduct)
-                    .HasForeignKey(d => d.BehaviorId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefAction29");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.BehaviorProduct)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefProduct27");
-            });
-
-            modelBuilder.Entity<City>(entity =>
-            {
-                entity.HasKey(e => e.CityId)
-                    .HasName("PK10_1")
-                    .IsClustered(false);
-
-                entity.ToTable("City", "Logistics");
-
-                entity.Property(e => e.LongDesc).HasMaxLength(100);
-
-                entity.Property(e => e.ShortDesc).HasMaxLength(4);
-
-                entity.HasOne(d => d.Provincia)
-                    .WithMany(p => p.City)
-                    .HasForeignKey(d => d.ProvinciaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefProvince15");
-            });
-
-            modelBuilder.Entity<Company>(entity =>
-            {
-                entity.HasKey(e => e.CompanyId)
-                    .HasName("PK4")
-                    .IsClustered(false);
-
-                entity.ToTable("Company", "Logistics");
-
-                entity.Property(e => e.Address).HasMaxLength(200);
-
-                entity.Property(e => e.IsPos)
-                    .HasColumnName("IsPOS")
-                    .HasColumnType("numeric(1, 0)");
-
-                entity.Property(e => e.IsSupplier).HasColumnType("numeric(1, 0)");
-
-                entity.Property(e => e.Latitude).HasColumnType("numeric(10, 6)");
-
-                entity.Property(e => e.Length).HasColumnType("numeric(10, 6)");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(e => e.PostalCode).HasMaxLength(50);
-
-                entity.Property(e => e.StateId).HasColumnType("numeric(2, 0)");
-
-                entity.HasOne(d => d.City)
-                    .WithMany(p => p.Company)
-                    .HasForeignKey(d => d.CityId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefCity3");
-
-                entity.HasOne(d => d.Contry)
-                    .WithMany(p => p.Company)
-                    .HasForeignKey(d => d.ContryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefCountry2");
-
-                entity.HasOne(d => d.Provincia)
-                    .WithMany(p => p.Company)
-                    .HasForeignKey(d => d.ProvinciaId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefProvince14");
-            });
-
-            modelBuilder.Entity<Country>(entity =>
-            {
-                entity.HasKey(e => e.ContryId)
-                    .HasName("PK10_2")
-                    .IsClustered(false);
-
-                entity.ToTable("Country", "Logistics");
-
-                entity.Property(e => e.LongDesc).HasMaxLength(100);
-
-                entity.Property(e => e.ShortDesc).HasMaxLength(4);
-            });
-            
+                     
             modelBuilder.Entity<ProductScore>(entity =>
             {
                 entity.HasKey(e => e.ProductScoreId)
@@ -178,74 +69,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("RefProduct32");
             });
-
-            modelBuilder.Entity<Province>(entity =>
-            {
-                entity.HasKey(e => e.ProvinciaId)
-                    .HasName("PK10")
-                    .IsClustered(false);
-
-                entity.ToTable("Province", "Logistics");
-
-                entity.Property(e => e.LongDesc).HasMaxLength(100);
-
-                entity.Property(e => e.ShortDesc).HasMaxLength(4);
-
-                entity.HasOne(d => d.Contry)
-                    .WithMany(p => p.Province)
-                    .HasForeignKey(d => d.ContryId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefCountry13");
-            });
-
-            modelBuilder.Entity<PurchaseOrder>(entity =>
-            {
-                entity.HasKey(e => e.PurchaseOrderId)
-                    .HasName("PK3")
-                    .IsClustered(false);
-
-                entity.ToTable("PurchaseOrder", "Orders");
-
-                entity.Property(e => e.OrderDate).HasColumnType("datetime");
-
-                entity.HasOne(d => d.Client)
-                    .WithMany(p => p.PurchaseOrder)
-                    .HasForeignKey(d => d.ClientId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefClient16");
-
-                entity.HasOne(d => d.Company)
-                    .WithMany(p => p.PurchaseOrder)
-                    .HasForeignKey(d => d.CompanyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefCompany23");
-            });
-
-            modelBuilder.Entity<PurchaseOrderDetail>(entity =>
-            {
-                entity.HasKey(e => e.PurchaseOrderDetailId)
-                    .HasName("PK5")
-                    .IsClustered(false);
-
-                entity.ToTable("PurchaseOrderDetail", "Orders");
-
-                entity.Property(e => e.SalePrice).HasColumnType("numeric(15, 2)");
-
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.PurchaseOrderDetail)
-                    .HasForeignKey(d => d.ProductId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefProduct221");
-
-                entity.HasOne(d => d.PurchaseOrder)
-                    .WithMany(p => p.PurchaseOrderDetail)
-                    .HasForeignKey(d => d.PurchaseOrderId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("RefPurchaseOrder17");
-            });
-
-           
-
+            
             modelBuilder.ApplyConfiguration(new ProductConfiguration());
             modelBuilder.ApplyConfiguration(new ClientConfiguration());
             modelBuilder.ApplyConfiguration(new OfferConfiguration());
@@ -258,6 +82,14 @@ namespace VamTech.Ecommerce.Infraestructure.Data
             modelBuilder.ApplyConfiguration(new CategoryConfiguration());
             modelBuilder.ApplyConfiguration(new SubcategoryConfiguration());
             modelBuilder.ApplyConfiguration(new ProductCategoryConfiguration());
+            modelBuilder.ApplyConfiguration(new BehaviorConfiguration());
+            modelBuilder.ApplyConfiguration(new BehaviorProductConfiguration());
+            modelBuilder.ApplyConfiguration(new CompanyConfiguration());
+            modelBuilder.ApplyConfiguration(new CountryConfiguration());
+            modelBuilder.ApplyConfiguration(new ProvinceConfiguration());
+            modelBuilder.ApplyConfiguration(new CityConfiguration());
+            modelBuilder.ApplyConfiguration(new PurchaseOrderConfiguration());
+            modelBuilder.ApplyConfiguration(new PurchaseOrderDetailConfiguration());
 
             OnModelCreatingPartial(modelBuilder);
         }

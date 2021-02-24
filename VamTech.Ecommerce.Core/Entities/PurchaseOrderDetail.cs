@@ -5,7 +5,7 @@ namespace VamTech.Ecommerce.Core.Entities
 {
     public partial class PurchaseOrderDetail : BaseEntity
     {
-        public long PurchaseOrderDetailId { get; set; }
+        //public long PurchaseOrderDetailId { get; set; }
         public decimal? SalePrice { get; set; }
         public int Quantity { get; set; }
         public int StateId { get; set; }

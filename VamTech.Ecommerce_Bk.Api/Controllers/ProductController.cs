@@ -8,7 +8,6 @@ using VamTech.Ecommerce.Core.DTOs;
 using VamTech.Ecommerce.Core.Entities;
 using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Core.QueryFilters;
-using VamTech.Ecommerce.Infrastructure.Interfaces;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
@@ -42,24 +41,15 @@ namespace VamTech.Ecommerce.Api.Controllers
         [HttpGet(Name = nameof(GetProducts))]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(ApiResponse<IEnumerable<ProductDto>>))]
         [ProducesResponseType((int)HttpStatusCode.BadRequest)]
+        //[Authorize(Policy = "PolicyCliente")]
         public IActionResult GetProducts([FromQuery]ProductQueryFilter filters)
         {
-            var Products = _ProductService.GetProducts(filters);
-            var ProductsDtos = _mapper.Map<IEnumerable<ProductDto>>(Products);
+            
+            var metadata = new Metadata();
 
-            var metadata = new Metadata
-            {
-                TotalCount = Products.TotalCount,
-                PageSize = Products.PageSize,
-                CurrentPage = Products.CurrentPage,
-                TotalPages = Products.TotalPages,
-                HasNextPage = Products.HasNextPage,
-                HasPreviousPage = Products.HasPreviousPage,
-                NextPageUrl = _uriService.GetProductPaginationUri(filters, Url.RouteUrl(nameof(GetProducts))).ToString(),
-                PreviousPageUrl = _uriService.GetProductPaginationUri(filters, Url.RouteUrl(nameof(GetProducts))).ToString()
-            };
+            var prds =_ProductService.GetProducts(filters, Url.RouteUrl(nameof(GetProducts)), out metadata);
 
-            var response = new ApiResponse<IEnumerable<ProductDto>>(ProductsDtos)
+            var response = new ApiResponse<IEnumerable<ProductDto>>(prds)
             {
                 Meta = metadata
             };
@@ -79,18 +69,18 @@ namespace VamTech.Ecommerce.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Product(ProductDto ProductDto)
+        public async Task<IActionResult> Product(ProductDto dto)
         {
-            var Product = _mapper.Map<Product>(ProductDto);
+            //var Product = _mapper.Map<Product>(ProductDto);
 
-            await _ProductService.InsertProduct(Product);
+            await _ProductService.InsertProduct(dto);
 
-            ProductDto = _mapper.Map<ProductDto>(Product);
-            var response = new ApiResponse<ProductDto>(ProductDto);
+            //ProductDto = _mapper.Map<ProductDto>(Product);
+            var response = new ApiResponse<ProductDto>(dto);
             return Ok(response);
         }
 
-        [HttpPut]
+        [HttpPut("Put")]
         public async Task<IActionResult> Put(int id, ProductDto ProductDto)
         {
             var Product = _mapper.Map<Product>(ProductDto);
@@ -106,6 +96,15 @@ namespace VamTech.Ecommerce.Api.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             var result = await _ProductService.DeleteProduct(id);
+            var response = new ApiResponse<bool>(result);
+            return Ok(response);
+        }
+
+        [HttpPut("Highligh")]
+        public async Task<IActionResult> Highligh(int id, decimal isFeatured)
+        {
+            
+            var result = await _ProductService.HighlighProduct(id, isFeatured);
             var response = new ApiResponse<bool>(result);
             return Ok(response);
         }

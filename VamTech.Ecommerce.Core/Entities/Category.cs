@@ -13,6 +13,10 @@ namespace VamTech.Ecommerce.Core.Entities
         //public int CategoryId { get; set; }
         public string Description { get; set; }
 
+        public string IconUrl { get; set; }
+
+        public decimal IsFeatured { get; set; }
+
         public virtual ICollection<Subcategory> Subcategories { get; set; }
     }
 }

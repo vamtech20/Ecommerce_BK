@@ -14,22 +14,24 @@ using Microsoft.OpenApi.Models;
 using VamTech.Ecommerce.Core.CustomEntities;
 using VamTech.Ecommerce.Core.Interfaces;
 using VamTech.Ecommerce.Core.Services;
-using VamTech.Ecommerce.Infrastructure.Data;
-using VamTech.Ecommerce.Infrastructure.Extensions;
-using VamTech.Ecommerce.Infrastructure.Filters;
-using VamTech.Ecommerce.Infrastructure.Interfaces;
-using VamTech.Ecommerce.Infrastructure.Options;
-using VamTech.Ecommerce.Infrastructure.Repositories;
-using VamTech.Ecommerce.Infrastructure.Services;
+using VamTech.Ecommerce.Infraestructure.Data;
+using VamTech.Ecommerce.Infraestructure.Extensions;
+using VamTech.Ecommerce.Infraestructure.Filters;
+
+using VamTech.Ecommerce.Infraestructure.Options;
+using VamTech.Ecommerce.Infraestructure.Repositories;
+
 using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
-using VamTech.Ecommerce.Infraestructure.Data;
 using VamTech.Ecommerce.Core.Entities;
 using Microsoft.AspNetCore.Identity;
 using VamTech.Ecommerce.Api.Services;
 using VamTech.Ecommerce.Api.Interfaces;
+
+
+
 
 namespace VamTech.Ecommerce.Api
 {
@@ -66,7 +68,7 @@ namespace VamTech.Ecommerce.Api
             services.Configure<PaginationOptions>(Configuration.GetSection("Pagination"));
 
 
-            services.AddDbContext<VamtechEcommerceContext>(options =>
+            services.AddDbContext<VamTechEcommerceContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("VamtechEcommerce")).UseLazyLoadingProxies()
             );
 
@@ -75,6 +77,9 @@ namespace VamTech.Ecommerce.Api
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IClientService, ClientService>();
             services.AddTransient<IOfferService, OfferService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<ILogisticService, LogisticService>();
+            services.AddTransient<IOrderService, OrderService>();
 
             services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
@@ -102,7 +107,7 @@ namespace VamTech.Ecommerce.Api
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequiredLength = 5;
-            }).AddEntityFrameworkStores<VamtechEcommerceContext>()
+            }).AddEntityFrameworkStores<VamTechEcommerceContext>()
                 .AddDefaultTokenProviders(); 
 
             services.AddCors(options =>

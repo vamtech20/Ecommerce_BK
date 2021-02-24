@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using VamTech.Ecommerce.Core.Exceptions;
 
-namespace VamTech.Ecommerce.Infrastructure.Filters
+namespace VamTech.Ecommerce.Infraestructure.Filters
 {
     public class GlobalExceptionFilter : IExceptionFilter
     {

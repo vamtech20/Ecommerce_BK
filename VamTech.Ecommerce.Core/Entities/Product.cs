@@ -5,10 +5,11 @@ namespace VamTech.Ecommerce.Core.Entities
 {
     public partial class Product : BaseEntity
     {
+
         public Product()
         {
-            BehaviorProduct = new HashSet<BehaviorProduct>();
-            OfferDetail = new HashSet<OfferDetail>();
+            Behaviors = new HashSet<BehaviorProduct>();
+            Offers = new HashSet<OfferDetail>();
             Categories = new HashSet<ProductCategory>();
             Features = new HashSet<ProductFeature>();
             Images = new HashSet<ProductImage>();
@@ -24,14 +25,20 @@ namespace VamTech.Ecommerce.Core.Entities
         public string Presentation { get; set; }
         public long BrandId { get; set; }
         public decimal IsFeatured { get; set; }
+        public int? StockOnHand { get; set; }
+
+        public string FullDescription { get; set; }
 
         public virtual Brand Brand { get; set; }
-        public virtual ICollection<BehaviorProduct> BehaviorProduct { get; set; }
-        public virtual ICollection<OfferDetail> OfferDetail { get; set; }
+        public virtual ICollection<BehaviorProduct> Behaviors { get; set; }
+        public virtual ICollection<OfferDetail> Offers { get; set; }
         public virtual ICollection<ProductCategory> Categories { get; set; }
         public virtual ICollection<ProductFeature> Features { get; set; }
         public virtual ICollection<ProductImage> Images { get; set; }
         public virtual ICollection<ProductScore> ProductScore { get; set; }
         public virtual ICollection<PurchaseOrderDetail> PurchaseOrderDetail { get; set; }
+
+       
+
     }
 }

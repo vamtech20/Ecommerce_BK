@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using VamTech.Ecommerce.Core.Entities;
 
-namespace VamTech.Ecommerce.Infrastructure.Data.Configurations
+namespace VamTech.Ecommerce.Infraestructure.Data.Configurations
 {
     public class ClientConfiguration : IEntityTypeConfiguration<Client>
     {
@@ -27,7 +27,12 @@ namespace VamTech.Ecommerce.Infrastructure.Data.Configurations
 
             builder.Property(e => e.Email)
                  .IsRequired()
-                 .HasMaxLength(100); 
+                 .HasMaxLength(100);
+
+            //builder.Property(e => e.NewsletterMail)
+            //       .HasMaxLength(100);
+
+            //builder.Property(e => e.NewsletterActive).HasColumnName("NewsletterActive");
 
             builder.Property(e => e.LastName)
                     .IsRequired()
