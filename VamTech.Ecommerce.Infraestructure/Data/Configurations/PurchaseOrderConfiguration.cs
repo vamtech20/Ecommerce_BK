@@ -28,7 +28,7 @@ namespace VamTech.Ecommerce.Infraestructure.Data.Configurations
                 .HasConstraintName("RefClient16");
 
             builder.HasOne(d => d.Company)
-                .WithMany(p => p.PurchaseOrder)
+                .WithMany(p => p.Orders)
                 .HasForeignKey(d => d.CompanyId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("RefCompany23");

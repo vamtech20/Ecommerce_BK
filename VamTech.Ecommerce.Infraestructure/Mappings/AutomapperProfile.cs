@@ -82,6 +82,9 @@ namespace VamTech.Ecommerce.Infraestructure.Mappings
             CreateMap<PurchaseOrderDetailDto, PurchaseOrderDetail>();
             CreateMap<PurchaseOrderDetail, PurchaseOrderDetailDto>();
 
+            CreateMap<POStateTrackingDto, POStateTracking>();
+            CreateMap<POStateTracking, POStateTrackingDto>();
+
         }
     }
 }

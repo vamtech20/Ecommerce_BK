@@ -7,7 +7,8 @@ namespace VamTech.Ecommerce.Core.Entities
     {
         public Company()
         {
-            PurchaseOrder = new HashSet<PurchaseOrder>();
+            Orders = new HashSet<PurchaseOrder>();
+            
         }
 
         //public long CompanyId { get; set; }
@@ -26,6 +27,6 @@ namespace VamTech.Ecommerce.Core.Entities
         public virtual City City { get; set; }
         public virtual Country Country { get; set; }
         public virtual Province Province { get; set; }
-        public virtual ICollection<PurchaseOrder> PurchaseOrder { get; set; }
+        public virtual ICollection<PurchaseOrder> Orders { get; set; }
     }
 }

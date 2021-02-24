@@ -140,5 +140,35 @@ namespace VamTech.Ecommerce.Core.Services
             return true;
         }
 
+        public async Task<bool> UpdateStates(IEnumerable<POStateTrackingDto> states)
+        {
+            try
+            {
+                foreach (var s in states)
+                {
+                    var po = _unitOfWork.PurchaseOrderRepository.GetById(s.PurchaseOrderId);
+                    po.Result.StateId = s.StateId;
+
+                    _unitOfWork.PurchaseOrderRepository.Update(po.Result);
+
+                    var state = _mapper.Map<POStateTracking>(s);
+                    await _unitOfWork.POStateTrackingRepository.Add(state);
+
+
+                    await _unitOfWork.SaveChangesAsync();
+
+
+
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+
+                return false;
+            }
+            
+        }
+
     }
 }
