@@ -152,6 +152,7 @@ namespace VamTech.Ecommerce.Core.Services
                     _unitOfWork.PurchaseOrderRepository.Update(po.Result);
 
                     var state = _mapper.Map<POStateTracking>(s);
+                    state.UpdateDate = DateTime.Now;
                     await _unitOfWork.POStateTrackingRepository.Add(state);
 
 
